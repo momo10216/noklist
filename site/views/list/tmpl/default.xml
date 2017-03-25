@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_NOKLIST_LIST_VIEW_LAYOUT_NAME">
+		<message><![CDATA[COM_NOKLIST_LIST_VIEW_LAYOUT_DESC]]></message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request" label="COM_NOKPRJMGNT_REQUEST_OPTIONS_FIELDSET_LABEL">
+		</fieldset>
+	</fields>
+	<fields name="params">
+		<!-- Basic options. -->
+		<fieldset name="basic" label="COM_NOKLIST_BASIC_OPTIONS_FIELDSET_LABEL">
+			<field name="columns" type="text" label="COM_NOKLIST_COLUMNS_LABEL" description="COM_NOKLIST_COLUMNS_DESC" />
+			<field name="file" type="text" label="COM_NOKLIST_FILE_LABEL" description="COM_NOKLIST_FILE_DESC" />
+		</fieldset>
+	</fields>
+</metadata>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3" method="upgrade">
+	<name>COM_NOKLIST</name>
+	<author>Norbert Kuemin</author>
+	<authorEmail>momo_102@bluemail.ch</authorEmail>
+	<creationDate>March 2017</creationDate>
+	<copyright>(C) 2017 Norbert Kuemin</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<version>0.1</version>
+	<description>COM_NOKLIST_XML_DESC</description>
+
+	<files folder="site">
+		<filename>noklist.php</filename>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<folder>helper</folder>
+		<folder>views</folder>
+	</files>
+
+	<media/>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB.com_noklist.ini</language>
+		<language tag="en-GB">en-GB.com_noklist.sys.ini</language>
+		<language tag="de-DE">de-DE.com_noklist.ini</language>
+		<language tag="de-DE">de-DE.com_noklist.sys.ini</language>
+	</languages>
+
+	<administration>
+		<languages folder="language">
+			<language tag="en-GB">en-GB.com_noklist.ini</language>
+			<language tag="en-GB">en-GB.com_noklist.sys.ini</language>
+			<language tag="de-DE">de-DE.com_noklist.ini</language>
+			<language tag="de-DE">de-DE.com_noklist.sys.ini</language>
+		</languages>
+	</administration>
+	<updateservers>
+		<server type="extension" priority="2" name="COM_NOKPRJMGNT_UPDATE_NAME">http://kuem.in/joomlaupdate/com_noklist.xml</server>
+	</updateservers>
+</extension>

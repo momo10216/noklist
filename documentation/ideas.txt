@@ -1,0 +1,3 @@
+- config columns in menu
+- config file in menu
+- add /edit / delete / list / export as CSV
