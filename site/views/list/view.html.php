@@ -15,6 +15,8 @@ class NoKListViewList extends JViewLegacy {
 	protected $pageHeading = 'COM_NOKLIST_PAGE_TITLE_DEFAULT';
 	protected $paramsMenuEntry;
 	protected $user;
+	protected $colHeader = array();
+	protected $file = '';
 
 	function display($tpl = null) {
 		// Init variables
@@ -28,11 +30,38 @@ class NoKListViewList extends JViewLegacy {
 			$currentMenu = $menu->getActive();
 			if (is_object($currentMenu)) {
 				$this->paramsMenuEntry = $currentMenu->params;
+				$this->colHeader = explode(';',$this->paramsMenuEntry->get('columns'));
+				$this->file = $this->paramsMenuEntry->get('file');
 			}
 		}
 		// Init document
 		JFactory::getDocument()->setMetaData('robots', 'noindex, nofollow');
 		parent::display($tpl);
+	}
+
+	function getData() {
+		$data = array();
+		if (!empty($this->file)) {
+			if (is_readable($this->file)) {
+				$content = file_get_contents($this->file);
+				JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
+				$data  = CvsHelper::loadCVS($content, 'UTF-8', "\t");
+			} else {
+				showError(JText::_('COM_NOKLIST_FILE_NOT_READABLE'));
+			}
+		}
+		return $data;
+	}
+
+	function getLink($task, $id='') {
+		$uri = new JURI(JURI::Root().'/index.php');
+		$uri->setVar('layout','default');
+		$uri->setVar('view','list');
+		$uri->setVar('option','com_noklist');
+		if (!empty($id)) {
+			$uri->setVar('id',$id);
+		}
+		return $uri->toString();
 	}
 }
 ?>

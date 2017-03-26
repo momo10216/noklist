@@ -4,7 +4,7 @@
 		<message><![CDATA[COM_NOKLIST_LIST_VIEW_LAYOUT_DESC]]></message>
 	</layout>
 	<fields name="request">
-		<fieldset name="request" label="COM_NOKPRJMGNT_REQUEST_OPTIONS_FIELDSET_LABEL">
+		<fieldset name="request" label="COM_NOKLIST_REQUEST_OPTIONS_FIELDSET_LABEL">
 		</fieldset>
 	</fields>
 	<fields name="params">
