@@ -29,7 +29,7 @@ foreach ($this->colHeader as $key => $col) {
 	$value = '';
 	if (isset($record[$key])) { $value = $record[$key]; }
 	echo '	<div class="control-label"><label for="jform_'.$key.'" title="" data-original-title="'.$col.'">'.$col.'</label></div>'.$EOL;
-	echo '	<div class="controls"><input id="jform_'.$key.'" type="text" name="'.$key.'" value="'.$value.'"/></div>'.$EOL;
+	echo '	<div class="controls"><input id="jform_'.$key.'" type="text" name="col_'.$key.'" value="'.$value.'"/></div>'.$EOL;
 }
 ?>
 	<p align="center">
@@ -40,10 +40,4 @@ foreach ($this->colHeader as $key => $col) {
 			<?php echo JText::_('JCANCEL') ?>
 		</button>
 	</p>
-	<input type="hidden" name="option" value="com_noklist" />
-	<input type="hidden" name="task" value="save" />
-	<?php if (!empty($id)) { ?>
-	<input type="hidden" name="id" value="<?php echo $id; ?>" />
-	<?php } ?>
-	<?php echo JHtml::_('form.token'); ?>
 </form>
