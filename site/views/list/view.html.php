@@ -17,6 +17,7 @@ class NoKListViewList extends JViewLegacy {
 	protected $user;
 	protected $colHeader = array();
 	protected $file = '';
+	protected $menuItemId = '';
 
 	function display($tpl = null) {
 		// Init variables
@@ -25,14 +26,27 @@ class NoKListViewList extends JViewLegacy {
 		$app = JFactory::getApplication();
 		$this->document = JFactory::getDocument();
 		$this->form = $this->get('Form');
+		// Get related menu entry
+		$menuItemId = JRequest::getVar('menuitemid');
 		$menu = $app->getMenu();
 		if (is_object($menu)) {
-			$currentMenu = $menu->getActive();
+			if (!empty($menuItemId)) {
+				$currentMenu = $menu->getItem($menuItemId);
+			} else {
+				$currentMenu = $menu->getActive();
+			}
+		}
+		// Related menu found
+		if (is_object($currentMenu)) {
+			$this->menuItemId = $currentMenu->id;
 			if (is_object($currentMenu)) {
 				$this->paramsMenuEntry = $currentMenu->params;
-				$this->colHeader = explode(';',$this->paramsMenuEntry->get('columns'));
-				$this->file = $this->paramsMenuEntry->get('file');
 			}
+		}
+		// Read configs
+		if (is_object($this->paramsMenuEntry)) {
+			$this->colHeader = explode(';',$this->paramsMenuEntry->get('columns'));
+			$this->file = $this->paramsMenuEntry->get('file');
 		}
 		// Init document
 		JFactory::getDocument()->setMetaData('robots', 'noindex, nofollow');
@@ -59,6 +73,9 @@ class NoKListViewList extends JViewLegacy {
 		$uri->setVar('view','list');
 		$uri->setVar('option','com_noklist');
 		$uri->setVar('task',$task);
+		if (!empty($this->menuItemId)) {
+			$uri->setVar('menuitemid',$this->menuItemId);
+		}
 		if (!empty($id)) {
 			$uri->setVar('id',$id);
 		}
