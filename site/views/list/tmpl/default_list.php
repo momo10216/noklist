@@ -17,11 +17,9 @@ foreach ($this->colHeader as $col) {
 	echo '<th align="left">'.$col.'</th>';
 }
 echo '<th align="left">';
-/*
-if ($this->componentCanDo->get('core.create')) {
+if ($this->canChange()) {
 	echo '<a style="text-decoration: none;" href="'.$this->getLink('new').'"><span class="icon-new"></span></a>';
 }
-*/
 echo '</th>';
 echo '</tr>'.$EOL;
 

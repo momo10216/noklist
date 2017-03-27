@@ -58,10 +58,22 @@ class NoKListViewList extends JViewLegacy {
 		$uri->setVar('layout','default');
 		$uri->setVar('view','list');
 		$uri->setVar('option','com_noklist');
+		$uri->setVar('task',$task);
 		if (!empty($id)) {
 			$uri->setVar('id',$id);
 		}
 		return $uri->toString();
+	}
+
+	function canChange() {
+		if (is_object($this->paramsMenuEntry)) {
+			if ($this->paramsMenuEntry->get('allow_change') == '1') {
+				if (array_search($this->paramsMenuEntry->get('change_access'), $this->user->getAuthorisedViewLevels()) !== false) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
 ?>

@@ -12,6 +12,11 @@
 		<fieldset name="basic" label="COM_NOKLIST_BASIC_OPTIONS_FIELDSET_LABEL">
 			<field name="columns" type="text" label="COM_NOKLIST_COLUMNS_LABEL" description="COM_NOKLIST_COLUMNS_DESC" />
 			<field name="file" type="text" label="COM_NOKLIST_FILE_LABEL" description="COM_NOKLIST_FILE_DESC" />
+			<field name="allow_change" type="radio" default="1" label="COM_NOKLIST_ALLOW_CHANGE_LABEL" description="COM_NOKLIST_ALLOW_CHANGE_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="change_access" type="accesslevel" label="COM_NOKLIST_CHANGE_ACCESS_LABEL" description="COM_NOKLIST_CHANGE_ACCESS_DESC" size="1" hide_none="false"/>
 		</fieldset>
 	</fields>
 </metadata>
