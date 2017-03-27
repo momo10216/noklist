@@ -16,8 +16,12 @@ $record = array();
 if (!empty($id)) {
 	$rows = $this->getData();
 	if (isset($rows[$id])) { $record = $rows[$id]; }
+	$title = JText::_('COM_NOKLIST_PAGE_EDIT_TITLE');
+} else {
+	$title = JText::_('COM_NOKLIST_PAGE_ADD_TITLE');
 }
 ?>
+<h1><?php echo $title; ?></h1>
 <form action="<?php echo $this->getLink('save',$id); ?>" method="post" name="adminForm" id="adminForm">
 
 <?php
