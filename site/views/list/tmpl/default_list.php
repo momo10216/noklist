@@ -10,6 +10,22 @@
 */
 defined('_JEXEC') or die; // no direct access
 $EOL = "\n";
+$encodings = array(
+	'Windows' => 'ISO-8859-1',
+	'Mac' => 'MAC',
+	'Linux' => 'UTF-8'
+);
+
+// Display export
+echo '<form action="'.$this->getLink('export').'" method="POST">';
+echo '<select name="export_encoding">';
+foreach($encodings as $display => $value) {
+	echo '<option value="'.$value.'">'.$display.'</option>';
+}
+echo '</select>';
+echo '<input type="submit" value="'.JText::_('COM_NOKLIST_EXPORT_BUTTON').'"/>';
+echo '</form>'.$EOL;
+
 // Display header
 echo '<table>'.$EOL;
 echo '<tr>';

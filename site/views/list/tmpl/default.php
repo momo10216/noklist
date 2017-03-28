@@ -37,6 +37,9 @@ switch ($task) {
 		}
 		echo $this->loadTemplate('list');
 		break;
+	case 'export':
+		$this->exportData(JFactory::getURI()->getVar('export_encoding'));
+		break;
 	case 'list':
 	default:
 		echo $this->loadTemplate('list');

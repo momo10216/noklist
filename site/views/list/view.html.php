@@ -110,6 +110,13 @@ class NoKListViewList extends JViewLegacy {
 		$this->_save($rows);
 	}
 
+	function exportData($encoding) {
+		$rows = $this->getData();
+		$rows = $this->_array_insert_before('0', $rows, $this->colHeader);
+		JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
+		CvsHelper::saveCVS($rows,$encoding,'export-'.date('Ymd').'.csv');
+	}
+
 	private function _save($rows) {
 		if (!empty($this->file)) {
 			if (is_writeable($this->file)) {
@@ -122,6 +129,20 @@ class NoKListViewList extends JViewLegacy {
 			}
 		}
 		return true;
+	}
+
+	private function _array_insert_before($beforekey, array &$array, $new_value) {
+		if (array_key_exists($beforekey, $array)) {
+			$result = array();
+			foreach ($array as $key => $value) {
+				if ($key == $beforekey) {
+					$result[] = $new_value;
+				}
+				$result[] = $value;
+			}
+			return $result;
+		}
+		return false;
 	}
 }
 ?>
