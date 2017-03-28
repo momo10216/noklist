@@ -11,6 +11,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die;
 class NoKListViewList extends JViewLegacy {
+	private $_delimiter = "\t";
 	protected $items;
 	protected $pageHeading = 'COM_NOKLIST_PAGE_TITLE_DEFAULT';
 	protected $paramsMenuEntry;
@@ -59,7 +60,7 @@ class NoKListViewList extends JViewLegacy {
 			if (is_readable($this->file)) {
 				$content = file_get_contents($this->file);
 				JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
-				$data  = CvsHelper::loadCVS($content, 'UTF-8', "\t");
+				$data  = CvsHelper::loadCVS($content, 'UTF-8', $this->_delimiter);
 			} else {
 				showError(JText::_('COM_NOKLIST_FILE_NOT_READABLE'));
 			}
@@ -91,6 +92,36 @@ class NoKListViewList extends JViewLegacy {
 			}
 		}
 		return false;
+	}
+
+	function saveData($id, $record) {
+		$rows = $this->getData();
+		if (!empty($id) && isset($rows[$id])) {
+			$rows[$id] = $record;
+		} else {
+			array_push($rows,$record);
+		}
+		$this->_save($rows);
+	}
+
+	function deleteData($id) {
+		$rows = $this->getData();
+		if (isset($rows[$id])) { unset($rows[$id]); }
+		$this->_save($rows);
+	}
+
+	private function _save($rows) {
+		if (!empty($this->file)) {
+			if (is_writeable($this->file)) {
+				JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
+				$content = CvsHelper::array2cvs($rows, $this->_delimiter);
+				file_put_contents($this->file, $content);
+			} else {
+				showError(JText::_('COM_NOKLIST_FILE_NOT_WRITEABLE'));
+				return false;
+			}
+		}
+		return true;
 	}
 }
 ?>

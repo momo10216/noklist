@@ -32,20 +32,16 @@ if (count($rows)>0) {
 		foreach($row as $field) {
 			echo '<td>'.$field.'</td>';
 		}
-/*
-		echo "<td".$borderStyle.">";
-		if ($itemCanDo->get('core.edit')) {
-			$uriEdit->setVar('id',$item->id);
+		echo '<td>';
+		if ($this->canChange()) {
 			echo '<a style="text-decoration: none;" href="'.$this->getLink('edit',$key).'"><span class="icon-edit"></span></a>';
 		}
 		echo '</td>';
-		echo "<td".$borderStyle.">";
-		if ($itemCanDo->get('core.delete')) {
-			$uriDelete->setVar('id',$item->id);
+		echo '<td>';
+		if ($this->canChange()) {
 			echo '<a style="text-decoration: none;" href="'.$this->getLink('delete',$key).'" onClick="return confirm(\''.$deleteConfirmMsg.'\');"><span class="icon-trash"></span></a>';
 		}
 		echo '</td>';
-*/
 		echo '</tr>'.$EOL;
 	}
 }

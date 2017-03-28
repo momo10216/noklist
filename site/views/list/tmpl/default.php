@@ -10,9 +10,9 @@
 */
 defined('_JEXEC') or die; // no direct access
 
-function getRecord() {
+function getRecord($colHeader) {
 	$record = array();
-	foreach ($this->colHeader as $key => $col) {
+	foreach ($colHeader as $key => $col) {
 		$value = JRequest::getVar('col_'.$key);
 		$record[$key] = $value;
 	}
@@ -23,16 +23,18 @@ $task = JRequest::getVar('task');
 switch ($task) {
 	case 'new':
 	case 'edit':
-		$uri = JFactory::getURI();
-		$id = $uri->getVar('id');
-		$record = getRecord();
-		//$this->saveData($id,$record)
 		echo $this->loadTemplate('edit');
 		break;
 	case 'save':
+		if ($this->canChange()) {
+			$this->saveData(JFactory::getURI()->getVar('id'),getRecord($this->colHeader));
+		}
 		echo $this->loadTemplate('list');
 		break;
 	case 'delete':
+		if ($this->canChange()) {
+			$this->deleteData(JFactory::getURI()->getVar('id'));
+		}
 		echo $this->loadTemplate('list');
 		break;
 	case 'list':
