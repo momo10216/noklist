@@ -16,7 +16,9 @@ class NoKListViewList extends JViewLegacy {
 	protected $pageHeading = 'COM_NOKLIST_PAGE_TITLE_DEFAULT';
 	protected $paramsMenuEntry;
 	protected $user;
-	protected $colHeader = array();
+	protected $colHeaders = array();
+	protected $colTypes = array();
+	protected $colParams = array();
 	protected $file = '';
 	protected $menuItemId = '';
 
@@ -46,7 +48,7 @@ class NoKListViewList extends JViewLegacy {
 		}
 		// Read configs
 		if (is_object($this->paramsMenuEntry)) {
-			$this->colHeader = explode(';',$this->paramsMenuEntry->get('columns'));
+			$this->_setColumnVars($this->paramsMenuEntry->get('columns'));
 			$this->file = $this->paramsMenuEntry->get('file');
 		}
 		// Init document
@@ -96,7 +98,7 @@ class NoKListViewList extends JViewLegacy {
 
 	function saveData($id, $record) {
 		$rows = $this->getData();
-		if (!empty($id) && isset($rows[$id])) {
+		if (($id != '') && isset($rows[$id])) {
 			$rows[$id] = $record;
 		} else {
 			array_push($rows,$record);
@@ -112,7 +114,7 @@ class NoKListViewList extends JViewLegacy {
 
 	function exportData($encoding) {
 		$rows = $this->getData();
-		$rows = $this->_array_insert_before('0', $rows, $this->colHeader);
+		$rows = $this->_array_insert_before('0', $rows, $this->colHeaders);
 		JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
 		CvsHelper::saveCVS($rows,$encoding,'export-'.date('Ymd').'.csv');
 	}
@@ -153,6 +155,29 @@ class NoKListViewList extends JViewLegacy {
 			return $result;
 		}
 		return false;
+	}
+
+	private function _setColumnVars($config) {
+		foreach(explode(';',$config) as $entry) {
+			// Defaulting
+			$header = $entry;
+			$type = 'text';
+			$params = '';
+			if (strpos($entry,'=') !== false) {
+				list($header,$type) = explode('=',$entry,2);
+			}
+			if (strpos($type,'(') !== false) {
+				list($type,$params) = explode('(',$type,2);
+				$params = trim($params,')');
+			}
+			$this->colHeaders[] = $header;
+			$this->colTypes[$header] = $type;
+			if (!empty($params)) {
+				$this->colParams[$header] = explode(',',$params);
+			} else {
+				$this->colParams[$header] = array();
+			}
+		}
 	}
 }
 ?>

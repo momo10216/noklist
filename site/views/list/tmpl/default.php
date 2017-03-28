@@ -27,7 +27,7 @@ switch ($task) {
 		break;
 	case 'save':
 		if ($this->canChange()) {
-			$this->saveData(JFactory::getURI()->getVar('id'),getRecord($this->colHeader));
+			$this->saveData(JFactory::getURI()->getVar('id'),getRecord($this->colHeaders));
 		}
 		echo $this->loadTemplate('list');
 		break;

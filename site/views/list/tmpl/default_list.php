@@ -29,7 +29,7 @@ echo '</form>'.$EOL;
 // Display header
 echo '<table>'.$EOL;
 echo '<tr>';
-foreach ($this->colHeader as $col) {
+foreach ($this->colHeaders as $col) {
 	echo '<th align="left">'.$col.'</th>';
 }
 echo '<th align="left">';
@@ -48,6 +48,9 @@ if ($rowcount > 0) {
 		echo '<tr>';
 		foreach($row as $field) {
 			echo '<td>'.$field.'</td>';
+		}
+		if (count($row) < count($this->colHeaders)) {
+			for($i=count($row) ; $i < count($this->colHeaders) ; $i++) { echo '<td></td>'; }
 		}
 		echo '<td>';
 		if ($this->canChange()) {

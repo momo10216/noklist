@@ -13,7 +13,7 @@ defined('_JEXEC') or die; // no direct access
 $EOL = "\n";
 $id = JRequest::getVar('id');
 $record = array();
-if (!empty($id)) {
+if ($id != '') {
 	$rows = $this->getData();
 	if (isset($rows[$id])) { $record = $rows[$id]; }
 	$title = JText::_('COM_NOKLIST_PAGE_EDIT_TITLE');
@@ -25,11 +25,27 @@ if (!empty($id)) {
 <form action="<?php echo $this->getLink('save',$id); ?>" method="post" name="adminForm" id="adminForm">
 
 <?php
-foreach ($this->colHeader as $key => $col) {
+foreach ($this->colHeaders as $key => $col) {
 	$value = '';
 	if (isset($record[$key])) { $value = $record[$key]; }
 	echo '	<div class="control-label"><label for="jform_'.$key.'" title="" data-original-title="'.$col.'">'.$col.'</label></div>'.$EOL;
-	echo '	<div class="controls"><input id="jform_'.$key.'" type="text" name="col_'.$key.'" value="'.$value.'"/></div>'.$EOL;
+	echo '	<div class="controls">';
+	switch (strtolower($this->colTypes[$col])) {
+		case 'select':
+			echo '<select name="col_'.$key.'">';
+			foreach ($this->colParams[$col] as $param) {
+				echo '<option';
+				if ($param == $value) { echo ' selected'; }
+				echo '>'.$param.'</option>';
+			}
+			echo '</select>';
+			break;
+		case 'text':
+		default:
+			echo '<input id="jform_'.$key.'" type="text" name="col_'.$key.'" value="'.$value.'"/>';
+			break;
+	}
+	echo '</div>'.$EOL;
 }
 ?>
 	<p align="center">
