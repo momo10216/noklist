@@ -158,7 +158,9 @@ class NoKListViewList extends JViewLegacy {
 	}
 
 	private function _setColumnVars($config) {
-		foreach(explode(';',$config) as $entry) {
+		$config = str_replace("\r","\n",$config);
+		$config = str_replace("\n\n","\n",$config);
+		foreach(explode("\n",$config) as $entry) {
 			// Defaulting
 			$header = $entry;
 			$type = 'text';

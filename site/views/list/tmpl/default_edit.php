@@ -40,6 +40,18 @@ foreach ($this->colHeaders as $key => $col) {
 			}
 			echo '</select>';
 			break;
+		case 'range':
+			echo '<input id="jform_'.$key.'" type="range" name="col_'.$key.'" value="'.$value.'"';
+			if (isset($this->colParams[$col])) {
+				if(isset($this->colParams[$col][0])) { echo ' min="'.$this->colParams[$col][0].'"'; }
+				if(isset($this->colParams[$col][1])) { echo ' max="'.$this->colParams[$col][1].'"'; }
+				if(isset($this->colParams[$col][2])) { echo ' step="'.$this->colParams[$col][2].'"'; }
+			}
+			echo '/>';
+			break;
+		case 'date':
+			echo '<input id="jform_'.$key.'" type="date" name="col_'.$key.'" value="'.$value.'"/>';
+			break;
 		case 'text':
 		default:
 			echo '<input id="jform_'.$key.'" type="text" name="col_'.$key.'" value="'.$value.'"/>';
