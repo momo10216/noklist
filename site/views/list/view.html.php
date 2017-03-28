@@ -77,7 +77,7 @@ class NoKListViewList extends JViewLegacy {
 		if (!empty($this->menuItemId)) {
 			$uri->setVar('menuitemid',$this->menuItemId);
 		}
-		if (!empty($id)) {
+		if ($id != '') {
 			$uri->setVar('id',$id);
 		}
 		return $uri->toString();
@@ -115,6 +115,16 @@ class NoKListViewList extends JViewLegacy {
 		$rows = $this->_array_insert_before('0', $rows, $this->colHeader);
 		JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
 		CvsHelper::saveCVS($rows,$encoding,'export-'.date('Ymd').'.csv');
+	}
+
+	function exchangeRecords($key1, $key2) {
+		$rows = $this->getData();
+		if (isset($rows[$key1]) & isset($rows[$key2])) {
+			$record = $rows[$key1];
+			$rows[$key1] = $rows[$key2];
+			$rows[$key2] = $record;
+		}
+		$this->_save($rows);
 	}
 
 	private function _save($rows) {

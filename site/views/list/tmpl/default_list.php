@@ -41,7 +41,8 @@ echo '</tr>'.$EOL;
 
 // Display list
 $rows = $this->getData();
-if (count($rows)>0) {
+$rowcount = count($rows);
+if ($rowcount > 0) {
 	$deleteConfirmMsg = JText::_("COM_NOKLIST_ENTRY_CONFIRM_DELETE");
 	foreach($rows as $key => $row) {
 		echo '<tr>';
@@ -50,12 +51,22 @@ if (count($rows)>0) {
 		}
 		echo '<td>';
 		if ($this->canChange()) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('edit',$key).'"><span class="icon-edit"></span></a>';
+			echo '<a style="text-decoration: none;" href="'.$this->getLink('edit',"$key").'"><span class="icon-edit"></span></a>';
 		}
 		echo '</td>';
 		echo '<td>';
 		if ($this->canChange()) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('delete',$key).'" onClick="return confirm(\''.$deleteConfirmMsg.'\');"><span class="icon-trash"></span></a>';
+			echo '<a style="text-decoration: none;" href="'.$this->getLink('delete',"$key").'" onClick="return confirm(\''.$deleteConfirmMsg.'\');"><span class="icon-trash"></span></a>';
+		}
+		echo '</td>';
+		echo '<td>';
+		if ($this->canChange() && ($key > 0)) {
+			echo '<a style="text-decoration: none;" href="'.$this->getLink('moveup',"$key").'"><span class="icon-arrow-up"></span></a>';
+		}
+		echo '</td>';
+		echo '<td>';
+		if ($this->canChange()  && ($key < ($rowcount-1))) {
+			echo '<a style="text-decoration: none;" href="'.$this->getLink('movedown',"$key").'"><span class="icon-arrow-down"></span></a>';
 		}
 		echo '</td>';
 		echo '</tr>'.$EOL;

@@ -40,11 +40,19 @@ switch ($task) {
 	case 'export':
 		$this->exportData(JFactory::getURI()->getVar('export_encoding'));
 		break;
+	case 'moveup':
+		$key = JFactory::getURI()->getVar('id');
+		$this->exchangeRecords($key, $key-1);
+		echo $this->loadTemplate('list');
+		break;
+	case 'movedown':
+		$key = JFactory::getURI()->getVar('id');
+		$this->exchangeRecords($key, $key+1);
+		echo $this->loadTemplate('list');
+		break;
 	case 'list':
 	default:
 		echo $this->loadTemplate('list');
 		break;
 }
-
-
 ?>
