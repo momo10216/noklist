@@ -18,7 +18,7 @@ $encodings = array(
 
 // Display export
 echo '<form action="'.$this->getLink('export').'" method="POST">';
-echo '<select name="export_encoding">';
+echo '<select name="export_encoding" style="width: auto; margin: 0px; ">';
 foreach($encodings as $display => $value) {
 	echo '<option value="'.$value.'">'.$display.'</option>';
 }
