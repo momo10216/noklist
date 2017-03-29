@@ -44,10 +44,10 @@ $rows = $this->getData();
 $rowcount = count($rows);
 if ($rowcount > 0) {
 	$deleteConfirmMsg = JText::_("COM_NOKLIST_ENTRY_CONFIRM_DELETE");
-	foreach($rows as $key => $row) {
+	foreach($rows as $rkey => $row) {
 		echo '<tr>';
-		foreach($row as $key => $field) {
-			$col = $this->colHeaders[$key];
+		foreach($row as $fkey => $field) {
+			$col = $this->colHeaders[$fkey];
 			echo '<td>';
 			switch (strtolower($this->colTypes[$col])) {
 				case 'date':
@@ -64,22 +64,22 @@ if ($rowcount > 0) {
 		}
 		echo '<td>';
 		if ($this->canChange()) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('edit',"$key").'"><span class="icon-edit"></span></a>';
+			echo '<a style="text-decoration: none;" href="'.$this->getLink('edit',"$rkey").'"><span class="icon-edit"></span></a>';
 		}
 		echo '</td>';
 		echo '<td>';
 		if ($this->canChange()) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('delete',"$key").'" onClick="return confirm(\''.$deleteConfirmMsg.'\');"><span class="icon-trash"></span></a>';
+			echo '<a style="text-decoration: none;" href="'.$this->getLink('delete',"$rkey").'" onClick="return confirm(\''.$deleteConfirmMsg.'\');"><span class="icon-trash"></span></a>';
 		}
 		echo '</td>';
 		echo '<td>';
-		if ($this->canChange() && ($key > 0)) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('moveup',"$key").'"><span class="icon-arrow-up"></span></a>';
+		if ($this->canChange() && ($rkey > 0)) {
+			echo '<a style="text-decoration: none;" href="'.$this->getLink('moveup',"$rkey").'"><span class="icon-arrow-up"></span></a>';
 		}
 		echo '</td>';
 		echo '<td>';
-		if ($this->canChange()  && ($key < ($rowcount-1))) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('movedown',"$key").'"><span class="icon-arrow-down"></span></a>';
+		if ($this->canChange()  && ($rkey < ($rowcount-1))) {
+			echo '<a style="text-decoration: none;" href="'.$this->getLink('movedown',"$rkey").'"><span class="icon-arrow-down"></span></a>';
 		}
 		echo '</td>';
 		echo '</tr>'.$EOL;
