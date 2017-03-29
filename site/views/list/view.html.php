@@ -78,7 +78,7 @@ class NoKListViewList extends JViewLegacy {
 		$uri->setVar('view','list');
 		$uri->setVar('option','com_noklist');
 		$uri->setVar('task',$task);
-		if (!empty($this->menuItemId)) {
+		if ($this->menuItemId != '') {
 			$uri->setVar('menuitemid',$this->menuItemId);
 		}
 		if ($id != '') {
