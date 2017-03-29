@@ -46,8 +46,18 @@ if ($rowcount > 0) {
 	$deleteConfirmMsg = JText::_("COM_NOKLIST_ENTRY_CONFIRM_DELETE");
 	foreach($rows as $key => $row) {
 		echo '<tr>';
-		foreach($row as $field) {
-			echo '<td>'.$field.'</td>';
+		foreach($row as $key => $field) {
+			$col = $this->colHeaders[$key];
+			echo '<td>';
+			switch (strtolower($this->colTypes[$col])) {
+				case 'date':
+					echo JHTML::date($field);
+					break;
+				default:
+					echo $field;
+					break;
+			}
+			echo '</td>';
 		}
 		if (count($row) < count($this->colHeaders)) {
 			for($i=count($row) ; $i < count($this->colHeaders) ; $i++) { echo '<td></td>'; }
