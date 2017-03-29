@@ -50,7 +50,12 @@ foreach ($this->colHeaders as $key => $col) {
 			echo '/>';
 			break;
 		case 'date':
-			echo '<input id="jform_'.$key.'" type="date" name="col_'.$key.'" value="'.$value.'"/>';
+			//echo '<input id="jform_'.$key.'" type="date" name="col_'.$key.'" value="'.$value.'"/>';
+			$format = JText::_('DATE_FORMAT_LC4');
+			foreach(array('Y','m','d') as $char) {
+				$format = str_replace($char, '%'.$char, $format);
+			}
+			echo JHtml::calendar($value, 'col_'.$key, 'jform_'.$key, $format);
 			break;
 		case 'text':
 		default:

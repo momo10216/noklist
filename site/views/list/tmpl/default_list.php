@@ -51,7 +51,7 @@ if ($rowcount > 0) {
 			echo '<td>';
 			switch (strtolower($this->colTypes[$col])) {
 				case 'date':
-					echo JHTML::date($field);
+					echo JHTML::date($field,JText::_('DATE_FORMAT_LC4'));
 					break;
 				default:
 					echo $field;
