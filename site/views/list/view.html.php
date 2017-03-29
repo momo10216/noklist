@@ -59,12 +59,14 @@ class NoKListViewList extends JViewLegacy {
 	function getData() {
 		$data = array();
 		if (!empty($this->file)) {
-			if (is_readable($this->file)) {
-				$content = file_get_contents($this->file);
-				JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
-				$data  = CvsHelper::loadCVS($content, 'UTF-8', $this->_delimiter);
-			} else {
-				showError(JText::_('COM_NOKLIST_FILE_NOT_READABLE'));
+			if (file_exists($this->file)) {
+				if (is_readable($this->file)) {
+					$content = file_get_contents($this->file);
+					JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
+					$data  = CvsHelper::loadCVS($content, 'UTF-8', $this->_delimiter);
+				} else {
+					$this->_showError(JText::_('COM_NOKLIST_FILE_NOT_READABLE'));
+				}
 			}
 		}
 		return $data;
@@ -136,7 +138,7 @@ class NoKListViewList extends JViewLegacy {
 				$content = CvsHelper::array2cvs($rows, $this->_delimiter);
 				file_put_contents($this->file, $content);
 			} else {
-				showError(JText::_('COM_NOKLIST_FILE_NOT_WRITEABLE'));
+				$this->_showError(JText::_('COM_NOKLIST_FILE_NOT_WRITEABLE'));
 				return false;
 			}
 		}
@@ -180,6 +182,11 @@ class NoKListViewList extends JViewLegacy {
 				$this->colParams[$header] = array();
 			}
 		}
+	}
+
+	private function _showError($text) {
+		$application = JFactory::getApplication();
+		$application->enqueueMessage($text, 'error');
 	}
 }
 ?>
