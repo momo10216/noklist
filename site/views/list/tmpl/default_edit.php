@@ -50,7 +50,6 @@ foreach ($this->colHeaders as $key => $col) {
 			echo '/>';
 			break;
 		case 'date':
-			//echo '<input id="jform_'.$key.'" type="date" name="col_'.$key.'" value="'.$value.'"/>';
 			$format = JText::_('DATE_FORMAT_LC4');
 			foreach(array('Y','m','d') as $char) {
 				$format = str_replace($char, '%'.$char, $format);
@@ -69,7 +68,7 @@ foreach ($this->colHeaders as $key => $col) {
 		<button type="submit">
 			<?php echo JText::_('JSAVE') ?>
 		</button>
-		<button type="submit" onClick="document.adminForm.task.value='cancel';">
+		<button onClick="location.href='<?php echo $this->getLink('list'); ?>';">
 			<?php echo JText::_('JCANCEL') ?>
 		</button>
 	</p>
