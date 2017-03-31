@@ -64,18 +64,11 @@ if ($rowcount > 0) {
 			echo '<td>';
 			if ($pos !== false) {
 				if (isset($row[$pos])) {
-					$field = $row[$pos];
+					$field = $this->getDisplayValue($col, $row[$pos]);
 					if ($detailLinkcolumn == $col) {
 						$field = '<a href="'.$this->getLink('detail',"$rkey").'">'.$field.'</a>';
 					}
-					switch (strtolower($this->colTypes[$col])) {
-						case 'date':
-							echo JHTML::date($field,JText::_('DATE_FORMAT_LC4'));
-							break;
-						default:
-							echo $field;
-							break;
-					}
+					echo $field;
 				}
 			}
 			echo '</td>';
@@ -103,5 +96,5 @@ if ($rowcount > 0) {
 		echo '</tr>'.$EOL;
 	}
 }
-echo "</table>\n";
+echo '</table>'.$EOL;
 ?>

@@ -131,6 +131,19 @@ class NoKListViewList extends JViewLegacy {
 		$this->_save($rows);
 	}
 
+	function getDisplayValue($col, $value) {
+		if (isset($this->colTypes[$col])) {
+			switch (strtolower($this->colTypes[$col])) {
+				case 'date':
+					return JHTML::date($value,JText::_('DATE_FORMAT_LC4'));
+					break;
+				default:
+					break;
+			}
+		}
+		return $value;
+	}
+
 	private function _save($rows) {
 		if (!empty($this->file)) {
 			if (is_writeable($this->file)) {

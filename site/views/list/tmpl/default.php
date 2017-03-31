@@ -50,6 +50,9 @@ switch ($task) {
 		$this->exchangeRecords($key, $key+1);
 		echo $this->loadTemplate('list');
 		break;
+	case 'detail':
+		echo $this->loadTemplate('detail');
+		break;
 	case 'list':
 	default:
 		echo $this->loadTemplate('list');
