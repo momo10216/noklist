@@ -27,7 +27,7 @@ if (is_object($this->paramsMenuEntry)) {
 		$listColumn = explode("\n",$config);
 	}
 }
-
+$detailLinkcolumn = $this->paramsMenuEntry->get('list_detail_column');
 
 // Display export
 echo '<form action="'.$this->getLink('export').'" method="POST">';
@@ -65,6 +65,9 @@ if ($rowcount > 0) {
 			if ($pos !== false) {
 				if (isset($row[$pos])) {
 					$field = $row[$pos];
+					if ($detailLinkcolumn == $col) {
+						$field = '<a href="'.$this->getLink('detail',"$rkey").'">'.$field.'</a>';
+					}
 					switch (strtolower($this->colTypes[$col])) {
 						case 'date':
 							echo JHTML::date($field,JText::_('DATE_FORMAT_LC4'));
