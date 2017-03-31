@@ -16,6 +16,19 @@ $encodings = array(
 	'Linux' => 'UTF-8'
 );
 
+// Get columns to be displayed
+if (is_object($this->paramsMenuEntry)) {
+	$config = $this->paramsMenuEntry->get('list_columns');
+	$config = str_replace("\r","\n",$config);
+	$config = str_replace("\n\n","\n",$config);
+	if (empty($config)) {
+		$listColumn = $this->colHeaders;
+	} else {
+		$listColumn = explode("\n",$config);
+	}
+}
+
+
 // Display export
 echo '<form action="'.$this->getLink('export').'" method="POST">';
 echo '<select name="export_encoding" style="width: auto; margin: 0px; ">';
@@ -29,7 +42,7 @@ echo '</form>'.$EOL;
 // Display header
 echo '<table>'.$EOL;
 echo '<tr>';
-foreach ($this->colHeaders as $col) {
+foreach ($listColumn as $col) {
 	echo '<th align="left">'.$col.'</th>';
 }
 echo '<th align="left">';
@@ -46,21 +59,23 @@ if ($rowcount > 0) {
 	$deleteConfirmMsg = JText::_("COM_NOKLIST_ENTRY_CONFIRM_DELETE");
 	foreach($rows as $rkey => $row) {
 		echo '<tr>';
-		foreach($row as $fkey => $field) {
-			$col = $this->colHeaders[$fkey];
+		foreach ($listColumn as $col) {
+			$pos =  array_search($col, $this->colHeaders);
 			echo '<td>';
-			switch (strtolower($this->colTypes[$col])) {
-				case 'date':
-					echo JHTML::date($field,JText::_('DATE_FORMAT_LC4'));
-					break;
-				default:
-					echo $field;
-					break;
+			if ($pos !== false) {
+				if (isset($row[$pos])) {
+					$field = $row[$pos];
+					switch (strtolower($this->colTypes[$col])) {
+						case 'date':
+							echo JHTML::date($field,JText::_('DATE_FORMAT_LC4'));
+							break;
+						default:
+							echo $field;
+							break;
+					}
+				}
 			}
 			echo '</td>';
-		}
-		if (count($row) < count($this->colHeaders)) {
-			for($i=count($row) ; $i < count($this->colHeaders) ; $i++) { echo '<td></td>'; }
 		}
 		echo '<td>';
 		if ($this->canChange()) {
