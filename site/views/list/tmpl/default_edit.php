@@ -56,6 +56,14 @@ foreach ($this->colHeaders as $key => $col) {
 			}
 			echo JHtml::calendar($value, 'col_'.$key, 'jform_'.$key, $format);
 			break;
+		case 'textarea':
+			echo '<textarea id="jform_'.$key.'" name="col_'.$key.'"';
+			if (isset($this->colParams[$col])) {
+				if(isset($this->colParams[$col][0])) { echo ' rows="'.$this->colParams[$col][0].'"'; }
+				if(isset($this->colParams[$col][1])) { echo ' cols="'.$this->colParams[$col][1].'"'; }
+			}
+			echo '>'.$value.'</textarea>';
+			break;
 		case 'text':
 		default:
 			echo '<input id="jform_'.$key.'" type="text" name="col_'.$key.'" value="'.$value.'"/>';
