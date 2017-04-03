@@ -100,10 +100,33 @@ class NoKListViewList extends JViewLegacy {
 
 	function saveData($id, $record) {
 		$rows = $this->getData();
-		if (($id != '') && isset($rows[$id])) {
-			$rows[$id] = $record;
-		} else {
+		$add = true;
+		if (($id != '') && isset($rows[$id])) { $add = false; }
+		// Set system related fields
+		foreach($this->colHeaders as $key => $col) {
+			if (isset($this->colTypes[$col])) {
+				switch (strtolower($this->colTypes[$col])) {
+					case 'createby':
+						if ($add) { $record[$key] = $this->user->get('name'); }
+						break;
+					case 'createdate':
+						if ($add) { $record[$key] = date('Y-m-d H:i:s'); }
+						break;
+					case 'updateby':
+						$record[$key] = $this->user->get('name');
+						break;
+					case 'updatedate':
+						$record[$key] = date('Y-m-d H:i:s');
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		if ($add) {
 			array_push($rows,$record);
+		} else {
+			$rows[$id] = $record;
 		}
 		$this->_save($rows);
 	}
@@ -136,6 +159,10 @@ class NoKListViewList extends JViewLegacy {
 			switch (strtolower($this->colTypes[$col])) {
 				case 'date':
 					if (!empty($value)) { return JHTML::date($value,JText::_('DATE_FORMAT_LC4')); }
+					break;
+				case 'createdate':
+				case 'updatedate':
+					if (!empty($value)) { return JHTML::date($value,JText::_('DATE_FORMAT_LC5')); }
 					break;
 				case 'textarea':
 					if (!empty($value)) { return '<pre>'.$value.'</pre>'; }

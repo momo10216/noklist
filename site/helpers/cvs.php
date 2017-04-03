@@ -49,7 +49,11 @@ class CvsHelper {
 			$count = count($row);
 			if ($count > 0) {
 				for ($i=0; $i < $count; $i++) {
-					$row[$i] = self::cvs_encode_field($row[$i],$delimiter);
+					if (isset($row[$i])) {
+						$row[$i] = self::cvs_encode_field($row[$i],$delimiter);
+					} else {
+						$row[$i] = '';
+					}
 				}
 			}
 			$content .= self::cvs_encode_line(implode($delimiter,$row))."\n";

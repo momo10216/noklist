@@ -88,6 +88,16 @@ foreach ($this->colHeaders as $key => $col) {
 			}
 			echo $editor->display('col_'.$key, $value, $width, $height, $cols, $rows);
 			break;
+		case 'createby':
+		case 'updateby':
+			echo '<span id="jform_'.$key.'">'.$value.'</span>';
+			break;
+		case 'createdate':
+		case 'updatedate':
+			$date = new JDate($value);
+			$format = JText::_('DATE_FORMAT_LC4');
+			echo '<span id="jform_'.$key.'">'.$date->format($format).'</span>';
+			break;
 		case 'text':
 		default:
 			echo '<input id="jform_'.$key.'" type="text" name="col_'.$key.'" value="'.$value.'"/>';
