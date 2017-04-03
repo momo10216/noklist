@@ -10,11 +10,19 @@
 */
 defined('_JEXEC') or die; // no direct access
 
-function getRecord($colHeader) {
+function getRecord($colHeader, $colTypes) {
 	$record = array();
 	foreach ($colHeader as $key => $col) {
-		$value = JRequest::getVar('col_'.$key, '', 'post', 'string', JREQUEST_ALLOWRAW);
-		$record[$key] = $value;
+		if (strtolower($colTypes[$col]) == 'htmlarea') {
+			$value = JRequest::getVar('col_'.$key, '', 'post', 'string', JREQUEST_ALLOWRAW);
+		} else {
+			$value = JRequest::getVar('col_'.$key);
+		}
+		if (is_array($value)) {
+			$record[$key] = implode(',',$value);
+		} else {
+			$record[$key] = $value;
+		}
 	}
 	return $record;
 }
@@ -27,9 +35,9 @@ switch ($task) {
 		break;
 	case 'save':
 		if ($this->canChange()) {
-			$this->saveData(JFactory::getURI()->getVar('id'),getRecord($this->colHeaders));
+			$this->saveData(JFactory::getURI()->getVar('id'),getRecord($this->colHeaders, $this->colTypes));
 		}
-		echo $this->loadTemplate('list');
+		echo $this->loadTemplate('detail');
 		break;
 	case 'delete':
 		if ($this->canChange()) {

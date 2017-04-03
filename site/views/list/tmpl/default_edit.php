@@ -10,6 +10,8 @@
 */
 defined('_JEXEC') or die; // no direct access
 
+//JHtml::_('formbehavior.chosen', 'select');
+
 $EOL = "\n";
 $id = JRequest::getVar('id');
 $record = array();
@@ -27,15 +29,23 @@ if ($id != '') {
 <?php
 foreach ($this->colHeaders as $key => $col) {
 	$value = '';
+	$multiple = false;
 	if (isset($record[$key])) { $value = $record[$key]; }
 	echo '	<div class="control-label"><label for="jform_'.$key.'" title="" data-original-title="'.$col.'">'.$col.'</label></div>'.$EOL;
 	echo '	<div class="controls">';
 	switch (strtolower($this->colTypes[$col])) {
+		case 'multiselect':
+			$multiple = true;
 		case 'select':
-			echo '<select name="col_'.$key.'">';
+			$values = explode(',',$value);
+			echo '<select name="col_'.$key;
+			if ($multiple) { echo '[]'; }
+			echo '"';
+			if ($multiple) { echo ' multiple'; }
+			echo '>';
 			foreach ($this->colParams[$col] as $param) {
 				echo '<option';
-				if ($param == $value) { echo ' selected'; }
+				if (array_search($param,$values) !== false)  { echo ' selected'; }
 				echo '>'.$param.'</option>';
 			}
 			echo '</select>';
@@ -65,7 +75,7 @@ foreach ($this->colHeaders as $key => $col) {
 			echo '>'.$value.'</textarea>';
 			break;
 		case 'htmlarea':
-			$editor =&JFactory::getEditor();
+			$editor = JFactory::getEditor();
 			$width = '100%';
 			$height = '300';
 			$cols = '60';
