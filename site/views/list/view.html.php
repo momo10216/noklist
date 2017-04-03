@@ -135,7 +135,10 @@ class NoKListViewList extends JViewLegacy {
 		if (isset($this->colTypes[$col])) {
 			switch (strtolower($this->colTypes[$col])) {
 				case 'date':
-					return JHTML::date($value,JText::_('DATE_FORMAT_LC4'));
+					if (!empty($value)) { return JHTML::date($value,JText::_('DATE_FORMAT_LC4')); }
+					break;
+				case 'textarea':
+					if (!empty($value)) { return '<pre>'.$value.'</pre>'; }
 					break;
 				default:
 					break;
