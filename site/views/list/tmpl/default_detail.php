@@ -20,10 +20,23 @@ $rows = $this->getData();
 if (isset($rows[$id])) {
 	$row = $rows[$id];
 	foreach($this->colHeaders as $key => $col) {
-		echo '<tr><td>'.$col.'</td><td>'.$this->getDisplayValue($col,$row[$key]).'</td></tr>'.$EOL;
+		$value = '';
+		if (isset($row[$key])) { $value = $row[$key]; }
+		echo '<tr><td>'.$col.'</td><td>'.$this->getDisplayValue($col,$value).'</td></tr>'.$EOL;
 	}
 }
 
 // Display footer
 echo '</table>'.$EOL;
-?>
+// Navigation
+?>	<p align="center">
+		<button onClick="location.href='<?php echo $this->getLink('list'); ?>';">
+			<?php echo JText::_('COM_NOKLIST_LIST_BUTTON') ?>
+		</button>
+		<button onClick="location.href='<?php echo $this->getLink('edit',$id); ?>';">
+			<?php echo JText::_('COM_NOKLIST_EDIT_BUTTON') ?>
+		</button>
+		<button onClick="if (confirm('<?php echo JText::_("COM_NOKLIST_ENTRY_CONFIRM_DELETE"); ?>')) { location.href='<?php echo $this->getLink('delete',$id); ?>'; }">
+			<?php echo JText::_('COM_NOKLIST_DELETE_BUTTON') ?>
+		</button>
+	</p>
