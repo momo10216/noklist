@@ -48,6 +48,11 @@ switch ($task) {
 	case 'export':
 		$this->exportData(JFactory::getURI()->getVar('export_encoding'));
 		break;
+	case 'import':
+		$input = JFactory::getApplication()->input;
+		$this->importData($input->files->get('import_file'), $input->get('import_encoding'));
+		echo $this->loadTemplate('list');
+		break;
 	case 'moveup':
 		$key = JFactory::getURI()->getVar('id');
 		$this->exchangeRecords($key, $key-1);

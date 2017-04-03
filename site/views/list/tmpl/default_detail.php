@@ -33,10 +33,12 @@ echo '</table>'.$EOL;
 		<button onClick="location.href='<?php echo $this->getLink('list'); ?>';">
 			<?php echo JText::_('COM_NOKLIST_LIST_BUTTON') ?>
 		</button>
+<?php if ($this->canChange()): ?>
 		<button onClick="location.href='<?php echo $this->getLink('edit',$id); ?>';">
 			<?php echo JText::_('COM_NOKLIST_EDIT_BUTTON') ?>
 		</button>
 		<button onClick="if (confirm('<?php echo JText::_("COM_NOKLIST_ENTRY_CONFIRM_DELETE"); ?>')) { location.href='<?php echo $this->getLink('delete',$id); ?>'; }">
 			<?php echo JText::_('COM_NOKLIST_DELETE_BUTTON') ?>
 		</button>
+<?php endif; ?>
 	</p>

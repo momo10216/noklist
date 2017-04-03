@@ -33,11 +33,24 @@ $detailLinkcolumn = $this->paramsMenuEntry->get('list_detail_column');
 echo '<form action="'.$this->getLink('export').'" method="POST">';
 echo '<select name="export_encoding" style="width: auto; margin: 0px; ">';
 foreach($encodings as $display => $value) {
-	echo '<option value="'.$value.'">'.$display.'</option>';
+	echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
 }
 echo '</select>';
 echo '<input type="submit" value="'.JText::_('COM_NOKLIST_EXPORT_BUTTON').'"/>';
 echo '</form>'.$EOL;
+
+// Display import
+if ($this->canChange()) {
+	echo '<form action="'.$this->getLink('import').'" method="POST" enctype="multipart/form-data">';
+	echo '<select name="import_encoding" style="width: auto; margin: 0px; ">';
+	foreach($encodings as $display => $value) {
+		echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
+	}
+	echo '</select>';
+	echo '<input class="input_box" id="import_file" name="import_file" type="file" size="57" />';
+	echo '<input type="submit" value="'.JText::_('COM_NOKLIST_IMPORT_BUTTON').'"/>';
+	echo '</form>'.$EOL;
+}
 
 // Display header
 echo '<table>'.$EOL;

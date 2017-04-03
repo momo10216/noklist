@@ -144,6 +144,51 @@ class NoKListViewList extends JViewLegacy {
 		CvsHelper::saveCVS($rows,$encoding,'export-'.date('Ymd').'.csv');
 	}
 
+	function importData($file, $encoding) {
+		$content = '';
+		if (isset($file['tmp_name'])) {
+			$content = file_get_contents($file['tmp_name']);
+			unlink($file['tmp_name']);
+		}
+		$content = str_replace("\r","\n",$content);
+		$content = str_replace("\n\n","\n",$content);
+		JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
+		$rows = CvsHelper::loadCVS($content, $encoding);
+		foreach($this->colHeaders as $fkey => $col) {
+			if (isset($this->colTypes[$col])) {
+				switch (strtolower($this->colTypes[$col])) {
+					case 'createby':
+						foreach($rows as $rkey => $row) {
+							$row[$fkey] = $this->user->get('name');
+							$rows[$rkey] = $row;
+						}
+						break;
+					case 'createdate':
+						foreach($rows as $rkey => $row) {
+							$row[$fkey] = date('Y-m-d H:i:s');
+							$rows[$rkey] = $row;
+						}
+						break;
+					case 'updateby':
+						foreach($rows as $rkey => $row) {
+							$row[$fkey] = $this->user->get('name');
+							$rows[$rkey] = $row;
+						}
+						break;
+					case 'updatedate':
+						foreach($rows as $rkey => $row) {
+							$row[$fkey] = date('Y-m-d H:i:s');
+							$rows[$rkey] = $row;
+						}
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		$this->_save($rows);
+	}
+
 	function exchangeRecords($key1, $key2) {
 		$rows = $this->getData();
 		if (isset($rows[$key1]) & isset($rows[$key2])) {
