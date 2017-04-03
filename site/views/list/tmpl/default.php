@@ -46,7 +46,8 @@ switch ($task) {
 		echo $this->loadTemplate('list');
 		break;
 	case 'export':
-		$this->exportData(JFactory::getURI()->getVar('export_encoding'));
+		$input = JFactory::getApplication()->input;
+		$this->exportData($input->get('export_encoding'));
 		break;
 	case 'import':
 		$input = JFactory::getApplication()->input;
