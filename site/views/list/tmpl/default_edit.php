@@ -64,6 +64,20 @@ foreach ($this->colHeaders as $key => $col) {
 			}
 			echo '>'.$value.'</textarea>';
 			break;
+		case 'htmlarea':
+			$editor =&JFactory::getEditor();
+			$width = '100%';
+			$height = '300';
+			$cols = '60';
+			$rows = '20';
+			if (isset($this->colParams[$col])) {
+				if(isset($this->colParams[$col][0])) { $height = $this->colParams[$col][0]; }
+				if(isset($this->colParams[$col][1])) { $width = $this->colParams[$col][1]; }
+				if(isset($this->colParams[$col][2])) { $cols = $this->colParams[$col][2]; }
+				if(isset($this->colParams[$col][3])) { $rows = $this->colParams[$col][3]; }
+			}
+			echo $editor->display('col_'.$key, $value, $width, $height, $cols, $rows);
+			break;
 		case 'text':
 		default:
 			echo '<input id="jform_'.$key.'" type="text" name="col_'.$key.'" value="'.$value.'"/>';

@@ -13,7 +13,7 @@ defined('_JEXEC') or die; // no direct access
 function getRecord($colHeader) {
 	$record = array();
 	foreach ($colHeader as $key => $col) {
-		$value = JRequest::getVar('col_'.$key);
+		$value = JRequest::getVar('col_'.$key, '', 'post', 'string', JREQUEST_ALLOWRAW);
 		$record[$key] = $value;
 	}
 	return $record;
