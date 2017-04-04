@@ -29,6 +29,9 @@ if (is_object($this->paramsMenuEntry)) {
 }
 $detailLinkcolumn = $this->paramsMenuEntry->get('list_detail_column');
 
+// Pre text
+echo $this->paramsMenuEntry->get('pretext');
+
 // Display export
 echo '<form action="'.$this->getLink('export').'" method="POST">';
 echo '<select name="export_encoding" style="width: auto; margin: 0px; ">';
@@ -134,4 +137,7 @@ if ($rowcount > 0) {
 // Display footer
 echo '</table>'.$EOL;
 if ($this->paramsMenuEntry->get( "table_center") == "1") { echo '</center>'.$EOL; }
+
+// Post text
+echo $this->paramsMenuEntry->get('posttext');
 ?>

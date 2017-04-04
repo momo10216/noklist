@@ -57,6 +57,9 @@
 			</field>
 			<field name="cellpadding" type="integer" label="COM_NOKLIST_LIST_CELLPADDING_LABEL"
 				description="COM_NOKLIST_LIST_CELLPADDING_DESC" required="true" first="0" last="10" step="1" default="0" />
+			<field name="@spacer" type="spacer" default="" label="" description="" />
+			<field name="pretext" type="editor" label="COM_NOKLIST_LIST_PRETEXT_LABEL" description="COM_NOKLIST_LIST_PRETEXT_DESC" filter="safehtml" />
+			<field name="posttext" type="editor" label="COM_NOKLIST_LIST_POSTTEXT_LABEL" description="COM_NOKLIST_LIST_POSTTEXT_DESC" filter="safehtml" />
 		</fieldset>
 	</fields>
 </metadata>
