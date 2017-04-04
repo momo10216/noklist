@@ -43,6 +43,12 @@
 				<option value="90%">90%</option>
 				<option value="100%">100%</option>
 			</field>
+			<field name="table_center" type="radio" default="0"
+				label="COM_NOKLIST_LIST_SHOW_HEADER_LABEL"
+				description="COM_NOKLIST_LIST_SHOW_HEADER_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
 			<field name="border_type" type="list" default="" label="COM_NOKLIST_LIST_BORDER_TYPE_LABEL" description="COM_NOKLIST_LIST_BORDER_TYPE_DESC">
 				<option value="">JNONE</option>
 				<option value="border">Border</option>
