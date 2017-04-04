@@ -48,7 +48,7 @@ if ($this->canChange()) {
 	}
 	echo '</select>';
 	echo '<input class="input_box" id="import_file" name="import_file" type="file" size="57" />';
-	echo '<input type="submit" value="'.JText::_('COM_NOKLIST_IMPORT_BUTTON').'"/>';
+	echo '<input type="submit" value="'.JText::_('COM_NOKLIST_IMPORT_BUTTON').'" onClick="if(document.getElementById(\'import_file\').value == \'\') { alert(\''.JText::_('COM_NOKLIST_IMPORT_FILE_EMPTY').'\'); return false; }"/>';
 	echo '</form>'.$EOL;
 }
 
