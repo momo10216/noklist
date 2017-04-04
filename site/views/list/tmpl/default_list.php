@@ -53,10 +53,31 @@ if ($this->canChange()) {
 }
 
 // Display header
-echo '<table>'.$EOL;
+$border='border-style:solid; border-width:1px';
+$width='';
+if ($this->paramsMenuEntry->get('width') != '0') {
+	$width='width="'.$this->paramsMenuEntry->get('width').'" ';
+}
+switch ($this->paramsMenuEntry->get( "border_type")) {
+	case "row":
+		$borderStyle = " style=\"border-top-style:solid; border-width:1px\"";
+		break;
+	case "grid":
+		$borderStyle = " style=\"".$border."\"";
+		break;
+	default:
+		$borderStyle = "";
+		break;
+}
+if ($this->paramsMenuEntry->get('table_center') == '1') { echo '<center>'.$EOL; }
+if ($this->paramsMenuEntry->get('border_type') != '') {
+	echo '<table '.$width.'border="0" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="'.$border.'">'.$EOL;
+} else {
+	echo '<table '.$width.'border="0" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="border-style:none; border-width:0px">'.$EOL;
+}
 echo '<tr>';
 foreach ($listColumn as $col) {
-	echo '<th align="left">'.$col.'</th>';
+	echo '<th align="left"'.$borderStyle.'>'.$col.'</th>';
 }
 echo '<th align="left">';
 if ($this->canChange()) {
@@ -74,7 +95,7 @@ if ($rowcount > 0) {
 		echo '<tr>';
 		foreach ($listColumn as $col) {
 			$pos =  array_search($col, $this->colHeaders);
-			echo '<td>';
+			echo '<td'.$borderStyle.'>';
 			if ($pos !== false) {
 				if (isset($row[$pos])) {
 					$field = $this->getDisplayValue($col, $row[$pos]);
@@ -109,5 +130,8 @@ if ($rowcount > 0) {
 		echo '</tr>'.$EOL;
 	}
 }
+
+// Display footer
 echo '</table>'.$EOL;
+if ($this->paramsMenuEntry->get( "table_center") == "1") { echo '</center>'.$EOL; }
 ?>
