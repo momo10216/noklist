@@ -221,7 +221,7 @@ class NoKListViewList extends JViewLegacy {
 
 	private function _save($rows) {
 		if (!empty($this->file)) {
-			if (is_writeable($this->file)) {
+			if (!file_exists($this->file) || is_writeable($this->file)) {
 				JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
 				$content = CvsHelper::array2cvs($rows, $this->_delimiter);
 				file_put_contents($this->file, $content);
