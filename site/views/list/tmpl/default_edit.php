@@ -10,7 +10,7 @@
 */
 defined('_JEXEC') or die; // no direct access
 
-//JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen', 'select');
 
 $EOL = "\n";
 $id = JRequest::getVar('id');
