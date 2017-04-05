@@ -16,6 +16,7 @@ class NoKListViewList extends JViewLegacy {
 	protected $pageHeading = 'COM_NOKLIST_PAGE_TITLE_DEFAULT';
 	protected $paramsMenuEntry;
 	protected $user;
+	protected $colPos = array();
 	protected $colHeaders = array();
 	protected $colTypes = array();
 	protected $colParams = array();
@@ -219,6 +220,18 @@ class NoKListViewList extends JViewLegacy {
 		return $value;
 	}
 
+	function getIndex($data, $column, $direction='ASC') {
+		$index = array();
+		foreach($data as $key => $row) {
+			$index[$key] = $row[$this->colPos[$column]];
+		}
+		if ($direction == 'ASC') {
+			sort($index);
+		} else {
+			rsort($index);
+		}
+	}
+
 	private function _save($rows) {
 		if (!empty($this->file)) {
 			if (!file_exists($this->file) || is_writeable($this->file)) {
@@ -263,6 +276,7 @@ class NoKListViewList extends JViewLegacy {
 				$params = trim($params,')');
 			}
 			$this->colHeaders[] = $header;
+			$this->colPos[$header] = array_search($header,$this->colHeaders);
 			$this->colTypes[$header] = $type;
 			if (!empty($params)) {
 				$this->colParams[$header] = explode(',',$params);
