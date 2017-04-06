@@ -65,6 +65,19 @@
 			<field name="cellpadding" type="integer" label="COM_NOKLIST_LIST_CELLPADDING_LABEL"
 				description="COM_NOKLIST_LIST_CELLPADDING_DESC" required="true" first="0" last="10" step="1" default="0" />
 			<field name="@spacer" type="spacer" default="" label="" description="" />
+			<field name="allow_export" type="radio" default="1"
+				label="COM_NOKLIST_LIST_ALLOW_EXPORT_LABEL"
+				description="COM_NOKLIST_LIST_ALLOW_EXPORT_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="allow_import" type="radio" default="1"
+				label="COM_NOKLIST_LIST_ALLOW_IMPORT_LABEL"
+				description="COM_NOKLIST_LIST_ALLOW_IMPORT_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="pretext" type="editor" label="COM_NOKLIST_LIST_PRETEXT_LABEL" description="COM_NOKLIST_LIST_PRETEXT_DESC" filter="safehtml" />
 			<field name="posttext" type="editor" label="COM_NOKLIST_LIST_POSTTEXT_LABEL" description="COM_NOKLIST_LIST_POSTTEXT_DESC" filter="safehtml" />
 		</fieldset>

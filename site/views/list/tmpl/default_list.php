@@ -49,26 +49,30 @@ if ($manualSortEnabled) {
 echo $this->paramsMenuEntry->get('pretext');
 
 // Display export
-echo '<form action="'.$this->getLink('export').'" method="POST">';
-echo '<select name="export_encoding" style="width: auto; margin: 0px; ">';
-foreach($encodings as $display => $value) {
-	echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
-}
-echo '</select>';
-echo '<input type="submit" value="'.JText::_('COM_NOKLIST_EXPORT_BUTTON').'"/>';
-echo '</form>'.$EOL;
-
-// Display import
-if ($this->canChange()) {
-	echo '<form action="'.$this->getLink('import').'" method="POST" enctype="multipart/form-data">';
-	echo '<select name="import_encoding" style="width: auto; margin: 0px; ">';
+if ($this->paramsMenuEntry->get('allow_export') == '1') {
+	echo '<form action="'.$this->getLink('export').'" method="POST">';
+	echo '<select name="export_encoding" style="width: auto; margin: 0px; ">';
 	foreach($encodings as $display => $value) {
 		echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
 	}
 	echo '</select>';
-	echo '<input class="input_box" id="import_file" name="import_file" type="file" size="57" />';
-	echo '<input type="submit" value="'.JText::_('COM_NOKLIST_IMPORT_BUTTON').'" onClick="if(document.getElementById(\'import_file\').value == \'\') { alert(\''.JText::_('COM_NOKLIST_IMPORT_FILE_EMPTY').'\'); return false; }"/>';
+	echo '<input type="submit" value="'.JText::_('COM_NOKLIST_EXPORT_BUTTON').'"/>';
 	echo '</form>'.$EOL;
+}
+
+// Display import
+if ($this->paramsMenuEntry->get('allow_import') == '1') {
+	if ($this->canChange()) {
+		echo '<form action="'.$this->getLink('import').'" method="POST" enctype="multipart/form-data">';
+		echo '<select name="import_encoding" style="width: auto; margin: 0px; ">';
+		foreach($encodings as $display => $value) {
+			echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
+		}
+		echo '</select>';
+		echo '<input class="input_box" id="import_file" name="import_file" type="file" size="57" />';
+		echo '<input type="submit" value="'.JText::_('COM_NOKLIST_IMPORT_BUTTON').'" onClick="if(document.getElementById(\'import_file\').value == \'\') { alert(\''.JText::_('COM_NOKLIST_IMPORT_FILE_EMPTY').'\'); return false; }"/>';
+		echo '</form>'.$EOL;
+	}
 }
 
 // Display header
@@ -147,7 +151,9 @@ if ($rowcount > 0) {
 			echo '<tr>';
 			foreach ($listColumn as $fkey => $col) {
 				$pos =  array_search($col, $this->colHeaders);
-				echo '<td';
+				$align = '';
+				if (strtolower($this->colTypes[$col]) == 'number') { $align = ' align="right"'; }
+				echo '<td'.$align;
 				if (($this->paramsMenuEntry->get('border_type') != 'column') || ($fkey != '0')) {
 					echo $borderStyle;
 				}

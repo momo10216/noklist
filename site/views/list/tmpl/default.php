@@ -46,12 +46,18 @@ switch ($task) {
 		echo $this->loadTemplate('list');
 		break;
 	case 'export':
-		$input = JFactory::getApplication()->input;
-		$this->exportData($input->get('export_encoding'));
+		if ($this->paramsMenuEntry->get('allow_export') == '1') {
+			$input = JFactory::getApplication()->input;
+			$this->exportData($input->get('export_encoding'));
+		} else {
+			echo $this->loadTemplate('list');
+		}
 		break;
 	case 'import':
-		$input = JFactory::getApplication()->input;
-		$this->importData($input->files->get('import_file'), $input->get('import_encoding'));
+		if ($this->paramsMenuEntry->get('allow_import') == '1') {
+			$input = JFactory::getApplication()->input;
+			$this->importData($input->files->get('import_file'), $input->get('import_encoding'));
+		}
 		echo $this->loadTemplate('list');
 		break;
 	case 'moveup':

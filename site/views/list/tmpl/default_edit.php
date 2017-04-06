@@ -98,6 +98,9 @@ foreach ($this->colHeaders as $key => $col) {
 			$format = JText::_('DATE_FORMAT_LC4');
 			echo '<span id="jform_'.$key.'">'.$date->format($format).'</span>';
 			break;
+		case 'number':
+			echo '<input id="jform_'.$key.'" type="number" name="col_'.$key.'" value="'.$value.'"/>';
+			break;
 		case 'text':
 		default:
 			echo '<input id="jform_'.$key.'" type="text" name="col_'.$key.'" value="'.$value.'"/>';

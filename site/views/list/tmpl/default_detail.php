@@ -28,7 +28,9 @@ if (isset($row)) {
 	foreach($this->colHeaders as $key => $col) {
 		$value = '';
 		if (isset($row[$key])) { $value = $row[$key]; }
-		echo '<tr><td>'.$col.'</td><td>'.$this->getDisplayValue($col,$value).'</td></tr>'.$EOL;
+		$align = '';
+		if (strtolower($this->colTypes[$col]) == 'number') { $align = ' align="right"'; }
+		echo '<tr><td>'.$col.'</td><td'.$align.'>'.$this->getDisplayValue($col,$value).'</td></tr>'.$EOL;
 	}
 }
 
