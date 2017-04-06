@@ -29,6 +29,19 @@ if (is_object($this->paramsMenuEntry)) {
 }
 $detailLinkcolumn = $this->paramsMenuEntry->get('list_detail_column');
 
+// Get sort info
+$sortField = '';
+$sortDirection = 'ASC';
+if (is_object($this->paramsMenuEntry)) {
+	$sortField = $this->paramsMenuEntry->get('sort_column');
+	$sortDirection = $this->paramsMenuEntry->get('sort_direction');
+}
+$jinput = JFactory::getApplication()->input;
+$inputSortField = $jinput->get('sortfield','');
+$inputSortDirection = $jinput->get('sortdirection','');
+if (!empty($inputSortField)) { $sortField = $inputSortField; }
+if (!empty($inputSortDirection)) { $sortDirection = $inputSortDirection; }
+
 // Pre text
 echo $this->paramsMenuEntry->get('pretext');
 
@@ -91,46 +104,50 @@ echo '</tr>'.$EOL;
 
 // Display list
 $rows = $this->getData();
+$idxlist = $this->getIndex($rows,$sortField,$sortDirection);
 $rowcount = count($rows);
 if ($rowcount > 0) {
 	$deleteConfirmMsg = JText::_("COM_NOKLIST_ENTRY_CONFIRM_DELETE");
-	foreach($rows as $rkey => $row) {
-		echo '<tr>';
-		foreach ($listColumn as $col) {
-			$pos =  array_search($col, $this->colHeaders);
-			echo '<td'.$borderStyle.'>';
-			if ($pos !== false) {
-				if (isset($row[$pos])) {
-					$field = $this->getDisplayValue($col, $row[$pos]);
-					if ($detailLinkcolumn == $col) {
-						$field = '<a href="'.$this->getLink('detail',"$rkey").'">'.$field.'</a>';
+	foreach($idxlist as $rkey) {
+		if (isset($rows[$rkey])) {
+			$row = $rows[$rkey];
+			echo '<tr>';
+			foreach ($listColumn as $col) {
+				$pos =  array_search($col, $this->colHeaders);
+				echo '<td'.$borderStyle.'>';
+				if ($pos !== false) {
+					if (isset($row[$pos])) {
+						$field = $this->getDisplayValue($col, $row[$pos]);
+						if ($detailLinkcolumn == $col) {
+							$field = '<a href="'.$this->getLink('detail',"$rkey").'">'.$field.'</a>';
+						}
+						echo $field;
 					}
-					echo $field;
 				}
+				echo '</td>';
+			}
+			echo '<td>';
+			if ($this->canChange()) {
+				echo '<a style="text-decoration: none;" href="'.$this->getLink('edit',"$rkey").'"><span class="icon-edit"></span></a>';
 			}
 			echo '</td>';
+			echo '<td>';
+			if ($this->canChange()) {
+				echo '<a style="text-decoration: none;" href="'.$this->getLink('delete',"$rkey").'" onClick="return confirm(\''.$deleteConfirmMsg.'\');"><span class="icon-trash"></span></a>';
+			}
+			echo '</td>';
+			echo '<td>';
+			if ($this->canChange() && ($rkey > 0)) {
+				echo '<a style="text-decoration: none;" href="'.$this->getLink('moveup',"$rkey").'"><span class="icon-arrow-up"></span></a>';
+			}
+			echo '</td>';
+			echo '<td>';
+			if ($this->canChange()  && ($rkey < ($rowcount-1))) {
+				echo '<a style="text-decoration: none;" href="'.$this->getLink('movedown',"$rkey").'"><span class="icon-arrow-down"></span></a>';
+			}
+			echo '</td>';
+			echo '</tr>'.$EOL;
 		}
-		echo '<td>';
-		if ($this->canChange()) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('edit',"$rkey").'"><span class="icon-edit"></span></a>';
-		}
-		echo '</td>';
-		echo '<td>';
-		if ($this->canChange()) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('delete',"$rkey").'" onClick="return confirm(\''.$deleteConfirmMsg.'\');"><span class="icon-trash"></span></a>';
-		}
-		echo '</td>';
-		echo '<td>';
-		if ($this->canChange() && ($rkey > 0)) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('moveup',"$rkey").'"><span class="icon-arrow-up"></span></a>';
-		}
-		echo '</td>';
-		echo '<td>';
-		if ($this->canChange()  && ($rkey < ($rowcount-1))) {
-			echo '<a style="text-decoration: none;" href="'.$this->getLink('movedown',"$rkey").'"><span class="icon-arrow-down"></span></a>';
-		}
-		echo '</td>';
-		echo '</tr>'.$EOL;
 	}
 }
 

@@ -220,16 +220,21 @@ class NoKListViewList extends JViewLegacy {
 		return $value;
 	}
 
-	function getIndex($data, $column, $direction='ASC') {
+	function getIndex($data, $column='', $direction='ASC') {
 		$index = array();
 		foreach($data as $key => $row) {
-			$index[$key] = $row[$this->colPos[$column]];
+			if (empty($column)) {
+				$index[$key] = $key;
+			} else {
+				$index[$row[$this->colPos[$column]]] = $key;
+			}
 		}
 		if ($direction == 'ASC') {
-			sort($index);
+			ksort($index);
 		} else {
-			rsort($index);
+			krsort($index);
 		}
+		return $index;
 	}
 
 	private function _save($rows) {
