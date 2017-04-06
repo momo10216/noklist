@@ -72,11 +72,14 @@ if ($this->canChange()) {
 $border='border-style:solid; border-width:1px';
 $width='';
 if ($this->paramsMenuEntry->get('width') != '0') {
-	$width='width="'.$this->paramsMenuEntry->get('width').'" ';
+	$width=' width="'.$this->paramsMenuEntry->get('width').'"';
 }
 switch ($this->paramsMenuEntry->get( "border_type")) {
 	case "row":
 		$borderStyle = " style=\"border-top-style:solid; border-width:1px\"";
+		break;
+	case "column":
+		$borderStyle = " style=\"border-left-style:solid; border-width:1px\"";
 		break;
 	case "grid":
 		$borderStyle = " style=\"".$border."\"";
@@ -87,13 +90,19 @@ switch ($this->paramsMenuEntry->get( "border_type")) {
 }
 if ($this->paramsMenuEntry->get('table_center') == '1') { echo '<center>'.$EOL; }
 if ($this->paramsMenuEntry->get('border_type') != '') {
-	echo '<table '.$width.'border="0" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="'.$border.'">'.$EOL;
+	echo '<table'.$width.' cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="'.$border.'">'.$EOL;
 } else {
-	echo '<table '.$width.'border="0" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="border-style:none; border-width:0px">'.$EOL;
+	echo '<table'.$width.' border="0" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="border-style:none; border-width:0px">'.$EOL;
 }
 echo '<tr>';
-foreach ($listColumn as $col) {
-	echo '<th align="left"'.$borderStyle.'>';
+foreach ($listColumn as $key => $col) {
+	echo '<th align="left"';
+	if ($this->paramsMenuEntry->get('border_type') != 'row') {
+		if (($this->paramsMenuEntry->get('border_type') != 'column') || ($key != '0')) {
+			echo $borderStyle;
+		}
+	}
+	echo '>';
 	$newSortDirection = 'ASC';
 	$sortExtText = '';
 	if ($col == $sortField) {
@@ -108,7 +117,11 @@ foreach ($listColumn as $col) {
 	echo '</a>'.$sortExtText;
 	echo '</th>';
 }
-echo '<th align="left">';
+echo '<th colspan="2" align="left"';
+if ($this->paramsMenuEntry->get('border_type') != 'row') {
+	echo $borderStyle;
+}
+echo '>';
 if ($this->canChange()) {
 	echo '<a style="text-decoration: none;" href="'.$this->getLink('new').'"><span class="icon-new"></span></a>';
 }
@@ -125,9 +138,13 @@ if ($rowcount > 0) {
 		if (isset($rows[$rkey])) {
 			$row = $rows[$rkey];
 			echo '<tr>';
-			foreach ($listColumn as $col) {
+			foreach ($listColumn as $fkey => $col) {
 				$pos =  array_search($col, $this->colHeaders);
-				echo '<td'.$borderStyle.'>';
+				echo '<td';
+				if (($this->paramsMenuEntry->get('border_type') != 'column') || ($fkey != '0')) {
+					echo $borderStyle;
+				}
+				echo '>';
 				if ($pos !== false) {
 					if (isset($row[$pos])) {
 						$field = $this->getDisplayValue($col, $row[$pos]);
@@ -139,26 +156,40 @@ if ($rowcount > 0) {
 				}
 				echo '</td>';
 			}
-			echo '<td>';
+			echo '<td'.$borderStyle.'>';
 			if ($this->canChange()) {
 				echo '<a style="text-decoration: none;" href="'.$this->getLink('edit',"$rkey").'"><span class="icon-edit"></span></a>';
 			}
 			echo '</td>';
-			echo '<td>';
+			if ($this->paramsMenuEntry->get('border_type') != 'column') {
+				echo '<td'.$borderStyle.'>';
+			} else {
+				echo '<td>';
+			}
 			if ($this->canChange()) {
 				echo '<a style="text-decoration: none;" href="'.$this->getLink('delete',"$rkey").'" onClick="return confirm(\''.$deleteConfirmMsg.'\');"><span class="icon-trash"></span></a>';
 			}
 			echo '</td>';
-			echo '<td>';
+/*
+			if ($this->paramsMenuEntry->get('border_type') != 'column') {
+				echo '<td'.$borderStyle.'>';
+			} else {
+				echo '<td>';
+			}
 			if ($this->canChange() && ($rkey > 0)) {
 				echo '<a style="text-decoration: none;" href="'.$this->getLink('moveup',"$rkey").'"><span class="icon-arrow-up"></span></a>';
 			}
 			echo '</td>';
-			echo '<td>';
+			if ($this->paramsMenuEntry->get('border_type') != 'column') {
+				echo '<td'.$borderStyle.'>';
+			} else {
+				echo '<td>';
+			}
 			if ($this->canChange()  && ($rkey < ($rowcount-1))) {
 				echo '<a style="text-decoration: none;" href="'.$this->getLink('movedown',"$rkey").'"><span class="icon-arrow-down"></span></a>';
 			}
 			echo '</td>';
+*/
 			echo '</tr>'.$EOL;
 		}
 	}

@@ -44,16 +44,17 @@
 				<option value="100%">100%</option>
 			</field>
 			<field name="table_center" type="radio" default="0"
-				label="COM_NOKLIST_LIST_SHOW_HEADER_LABEL"
-				description="COM_NOKLIST_LIST_SHOW_HEADER_DESC">
+				label="COM_NOKLIST_LIST_CENTER_LIST_LABEL"
+				description="COM_NOKLIST_LIST_CENTER_LIST_DESC">
 				<option value="0">JNO</option>
 				<option value="1">JYES</option>
 			</field>
 			<field name="border_type" type="list" default="" label="COM_NOKLIST_LIST_BORDER_TYPE_LABEL" description="COM_NOKLIST_LIST_BORDER_TYPE_DESC">
 				<option value="">JNONE</option>
-				<option value="border">Border</option>
-				<option value="row">Row</option>
-				<option value="grid">Grid</option>
+				<option value="border">COM_NOKLIST_LIST_BORDER_TYPE_BORDER</option>
+				<option value="row">COM_NOKLIST_LIST_BORDER_TYPE_ROW</option>
+				<option value="column">COM_NOKLIST_LIST_BORDER_TYPE_COLUMN</option>
+				<option value="grid">COM_NOKLIST_LIST_BORDER_TYPE_GRID</option>
 			</field>
 			<field name="cellpadding" type="integer" label="COM_NOKLIST_LIST_CELLPADDING_LABEL"
 				description="COM_NOKLIST_LIST_CELLPADDING_DESC" required="true" first="0" last="10" step="1" default="0" />
