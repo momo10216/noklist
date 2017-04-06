@@ -88,6 +88,20 @@ class NoKListViewList extends JViewLegacy {
 		return $uri->toString();
 	}
 
+	function getSortLink($sortField='', $sortDirection='') {
+		$uri = new JURI(JURI::Root().'/index.php');
+		$uri->setVar('layout','default');
+		$uri->setVar('view','list');
+		$uri->setVar('option','com_noklist');
+		$uri->setVar('task','list');
+		$uri->setVar('sortfield',$sortField);
+		$uri->setVar('sortdirection',$sortDirection);
+		if ($this->menuItemId != '') {
+			$uri->setVar('menuitemid',$this->menuItemId);
+		}
+		return $uri->toString();
+	}
+
 	function canChange() {
 		if (is_object($this->paramsMenuEntry)) {
 			if ($this->paramsMenuEntry->get('allow_change') == '1') {

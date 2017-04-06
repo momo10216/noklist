@@ -93,7 +93,20 @@ if ($this->paramsMenuEntry->get('border_type') != '') {
 }
 echo '<tr>';
 foreach ($listColumn as $col) {
-	echo '<th align="left"'.$borderStyle.'>'.$col.'</th>';
+	echo '<th align="left"'.$borderStyle.'>';
+	$newSortDirection = 'ASC';
+	$sortExtText = '';
+	if ($col == $sortField) {
+		$sortExtText = '&#x25BC;';
+		if ($sortDirection == 'ASC') {
+			$newSortDirection = 'DESC';
+			$sortExtText = ' &#x25B2;';
+		}
+	}
+	echo '<a style="text-decoration: none;" href="'.$this->getSortLink($col,$newSortDirection).'">';
+	echo $col;
+	echo '</a>'.$sortExtText;
+	echo '</th>';
 }
 echo '<th align="left">';
 if ($this->canChange()) {
