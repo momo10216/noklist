@@ -36,11 +36,14 @@ if (is_object($this->paramsMenuEntry)) {
 	$sortField = $this->paramsMenuEntry->get('sort_column');
 	$sortDirection = $this->paramsMenuEntry->get('sort_direction');
 }
-$jinput = JFactory::getApplication()->input;
-$inputSortField = $jinput->get('sortfield','');
-$inputSortDirection = $jinput->get('sortdirection','');
-if (!empty($inputSortField)) { $sortField = $inputSortField; }
-if (!empty($inputSortDirection)) { $sortDirection = $inputSortDirection; }
+$manualSortEnabled = $this->paramsMenuEntry->get('sort_enable') == '1';
+if ($manualSortEnabled) {
+	$jinput = JFactory::getApplication()->input;
+	$inputSortField = $jinput->get('sortfield','');
+	$inputSortDirection = $jinput->get('sortdirection','');
+	if (!empty($inputSortField)) { $sortField = $inputSortField; }
+	if (!empty($inputSortDirection)) { $sortDirection = $inputSortDirection; }
+}
 
 // Pre text
 echo $this->paramsMenuEntry->get('pretext');
@@ -103,18 +106,22 @@ foreach ($listColumn as $key => $col) {
 		}
 	}
 	echo '>';
-	$newSortDirection = 'ASC';
-	$sortExtText = '';
-	if ($col == $sortField) {
-		$sortExtText = '&#x25BC;';
-		if ($sortDirection == 'ASC') {
-			$newSortDirection = 'DESC';
-			$sortExtText = ' &#x25B2;';
+	if ($manualSortEnabled) {
+		$newSortDirection = 'ASC';
+		$sortExtText = '';
+		if ($col == $sortField) {
+			$sortExtText = '&#x25BC;';
+			if ($sortDirection == 'ASC') {
+				$newSortDirection = 'DESC';
+				$sortExtText = ' &#x25B2;';
+			}
 		}
+		echo '<a style="text-decoration: none;" href="'.$this->getSortLink($col,$newSortDirection).'">';
 	}
-	echo '<a style="text-decoration: none;" href="'.$this->getSortLink($col,$newSortDirection).'">';
 	echo $col;
-	echo '</a>'.$sortExtText;
+	if ($manualSortEnabled) {
+		echo '</a>'.$sortExtText;
+	}
 	echo '</th>';
 }
 echo '<th colspan="2" align="left"';
