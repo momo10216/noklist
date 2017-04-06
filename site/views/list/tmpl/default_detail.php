@@ -17,8 +17,14 @@ echo '<table>'.$EOL;
 // Display record
 $id = JFactory::getURI()->getVar('id');
 $rows = $this->getData();
-if (isset($rows[$id])) {
-	$row = $rows[$id];
+if ($id == '') {
+	$row = array_pop($rows);
+} else {
+	if (isset($rows[$id])) {
+		$row = $rows[$id];
+	}
+}
+if (isset($row)) {
 	foreach($this->colHeaders as $key => $col) {
 		$value = '';
 		if (isset($row[$key])) { $value = $row[$key]; }
