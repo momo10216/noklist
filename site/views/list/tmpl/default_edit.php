@@ -83,8 +83,8 @@ foreach ($this->colHeaders as $key => $col) {
 			if (isset($this->colParams[$col])) {
 				if(isset($this->colParams[$col][0])) { $height = $this->colParams[$col][0]; }
 				if(isset($this->colParams[$col][1])) { $width = $this->colParams[$col][1]; }
-				if(isset($this->colParams[$col][2])) { $cols = $this->colParams[$col][2]; }
-				if(isset($this->colParams[$col][3])) { $rows = $this->colParams[$col][3]; }
+				if(isset($this->colParams[$col][2])) { $rows = $this->colParams[$col][2]; }
+				if(isset($this->colParams[$col][3])) { $cols = $this->colParams[$col][3]; }
 			}
 			echo $editor->display('col_'.$key, $value, $width, $height, $cols, $rows);
 			break;
