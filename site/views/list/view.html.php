@@ -230,6 +230,10 @@ class NoKListViewList extends JViewLegacy {
 				case 'url':
 					if (!empty($value)) { return '<a href="'.$value.'" target="_new">'.$value.'</a>'; }
 					break;
+				case 'boolean':
+					if ($value == '0') { return JText::_('JNO'); }
+					if ($value == '1') { return JText::_('JYES'); }
+					break;
 				default:
 					break;
 			}
