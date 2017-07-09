@@ -227,6 +227,9 @@ class NoKListViewList extends JViewLegacy {
 				case 'textarea':
 					if (!empty($value)) { return '<pre>'.$value.'</pre>'; }
 					break;
+				case 'url':
+					if (!empty($value)) { return '<a href="'.$value.'" target="_new">'.$value.'</a>'; }
+					break;
 				default:
 					break;
 			}

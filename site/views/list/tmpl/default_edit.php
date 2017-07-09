@@ -107,6 +107,7 @@ foreach ($this->colHeaders as $key => $col) {
 		case 'number':
 			echo '<input id="jform_'.$key.'" type="number" name="col_'.$key.'" value="'.$value.'"/>';
 			break;
+		case 'url':
 		case 'text':
 		default:
 			echo '<input id="jform_'.$key.'" type="text" name="col_'.$key.'" value="'.$value.'"/>';
