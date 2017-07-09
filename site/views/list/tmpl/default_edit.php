@@ -50,6 +50,12 @@ foreach ($this->colHeaders as $key => $col) {
 			}
 			echo '</select>';
 			break;
+		case 'boolean':
+			JFormHelper::loadFieldClass('radio');
+			$field = new JFormFieldRadio();
+			$field->setup(new SimpleXMLElement('<field name="col_'.$key.'" type="radio" size="1" default="'.$value.'" class="btn-group btn-group-yesno"><option value="1">JYES</option><option value="0">JNO</option></field>'), 1);
+			echo $field->renderField(array('hiddenLabel'=>true));
+			break;
 		case 'range':
 			echo '<input id="jform_'.$key.'" type="range" name="col_'.$key.'" value="'.$value.'"';
 			if (isset($this->colParams[$col])) {
