@@ -36,6 +36,6 @@
 		</languages>
 	</administration>
 	<updateservers>
-		<server type="extension" priority="2" name="COM_NOKPRJMGNT_UPDATE_NAME">http://kuem.in/joomlaupdate/com_noklist.xml</server>
+		<server type="extension" priority="2" name="COM_NOKLIST_UPDATE_NAME">http://kuem.in/joomlaupdate/com_noklist.xml</server>
 	</updateservers>
 </extension>
