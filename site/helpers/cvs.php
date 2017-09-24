@@ -2,8 +2,8 @@
 /**
 * @version	$Id$
 * @package	Joomla
-* @subpackage	ClubManagement-Tools
-* @copyright	Copyright (c) 2014 Norbert Kümin. All rights reserved.
+* @subpackage	NoK-List
+* @copyright	Copyright (c) 2017 Norbert Kümin. All rights reserved.
 * @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
@@ -15,11 +15,11 @@ defined('_JEXEC') or die;
  * CVS helper.
  *
  * @package     Joomla
- * @subpackage  com_clubmanagement
+ * @subpackage  com_noklist
  * @since       3.0
  */
 class CvsHelper {
-	public static function saveCVS($data, $encoding, $filename, $delimiter = ';') {
+	public static function save($data, $encoding, $filename, $delimiter = ';') {
 		$content = self::array2cvs($data, $delimiter);
 		if ($encoding != "utf-8") {
 			$content = iconv("UTF-8", strtoupper($encoding)."//TRANSLIT", $content); 
@@ -36,7 +36,7 @@ class CvsHelper {
 		$app->close();
 	}
 
-	public static function loadCVS($content, $encoding, $delimiter = ';') {
+	public static function load($content, $encoding, $delimiter = ';') {
 		if ($encoding != "UTF-8") {
 			$content = iconv($encoding, "UTF-8"."//TRANSLIT", $content); 
 		}

@@ -45,10 +45,17 @@ switch ($task) {
 		}
 		echo $this->loadTemplate('list');
 		break;
-	case 'export':
-		if ($this->paramsMenuEntry->get('allow_export') == '1') {
+	case 'csv_export':
+		if ($this->paramsMenuEntry->get('allow_csv_export') == '1') {
 			$input = JFactory::getApplication()->input;
-			$this->exportData($input->get('export_encoding'));
+			$this->exportCsvData($input->get('export_encoding'));
+		} else {
+			echo $this->loadTemplate('list');
+		}
+		break;
+	case 'json_export':
+		if ($this->paramsMenuEntry->get('allow_json_export') == '1') {
+			$this->exportJsonData();
 		} else {
 			echo $this->loadTemplate('list');
 		}

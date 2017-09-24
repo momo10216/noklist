@@ -64,7 +64,7 @@ class NoKListViewList extends JViewLegacy {
 				if (is_readable($this->file)) {
 					$content = file_get_contents($this->file);
 					JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
-					$data  = CvsHelper::loadCVS($content, 'UTF-8', $this->_delimiter);
+					$data  = CvsHelper::load($content, 'UTF-8', $this->_delimiter);
 				} else {
 					$this->_showError(JText::_('COM_NOKLIST_FILE_NOT_READABLE'));
 				}
@@ -152,11 +152,28 @@ class NoKListViewList extends JViewLegacy {
 		$this->_save($rows);
 	}
 
-	function exportData($encoding) {
+	function exportCsvData($encoding) {
 		$rows = $this->getData();
 		$rows = $this->_array_insert_before('0', $rows, $this->colHeaders);
 		JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
-		CvsHelper::saveCVS($rows,$encoding,'export-'.date('Ymd').'.csv');
+		CvsHelper::save($rows,$encoding,'export-'.date('Ymd').'.csv');
+	}
+
+	function exportJsonData() {
+		$rows = $this->getData();
+		$cols = $this->colHeaders;
+		$jsonData = array();
+		foreach($rows as $row) {
+			$record = array();
+			foreach($cols as $key => $col) {
+				if (isset($row[$key])) {
+					$record[$col] = $row[$key];
+				}
+			}
+			$jsonData[] = $record;
+		}
+		JLoader::register('JsonHelper', __DIR__.'/../../helpers/json.php', true);
+		JsonHelper::save($jsonData,'utf-8','');
 	}
 
 	function importData($file, $encoding) {
@@ -168,7 +185,7 @@ class NoKListViewList extends JViewLegacy {
 		$content = str_replace("\r","\n",$content);
 		$content = str_replace("\n\n","\n",$content);
 		JLoader::register('CvsHelper', __DIR__.'/../../helpers/cvs.php', true);
-		$rows = CvsHelper::loadCVS($content, $encoding);
+		$rows = CvsHelper::load($content, $encoding);
 		foreach($this->colHeaders as $fkey => $col) {
 			if (isset($this->colTypes[$col])) {
 				switch (strtolower($this->colTypes[$col])) {

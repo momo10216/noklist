@@ -49,8 +49,8 @@ if ($manualSortEnabled) {
 echo $this->paramsMenuEntry->get('pretext');
 
 // Display export
-if ($this->paramsMenuEntry->get('allow_export') == '1') {
-	echo '<form action="'.$this->getLink('export').'" method="POST">';
+if ($this->paramsMenuEntry->get('allow_csv_export') == '1') {
+	echo '<form action="'.$this->getLink('csv_export').'" method="POST">';
 	echo '<select name="export_encoding" style="width: auto; margin: 0px; ">';
 	foreach($encodings as $display => $value) {
 		echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
@@ -59,7 +59,9 @@ if ($this->paramsMenuEntry->get('allow_export') == '1') {
 	echo '<input type="submit" value="'.JText::_('COM_NOKLIST_EXPORT_BUTTON').'"/>';
 	echo '</form>'.$EOL;
 }
-
+if ($this->paramsMenuEntry->get('allow_json_export') == '1') {
+	echo '<a href="'.$this->getLink('json_export').'">JSON</a>'.$EOL;
+}
 // Display import
 if ($this->paramsMenuEntry->get('allow_import') == '1') {
 	if ($this->canChange()) {

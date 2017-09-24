@@ -12,29 +12,32 @@
 		<fieldset name="basic" label="COM_NOKLIST_BASIC_OPTIONS_FIELDSET_LABEL">
 			<field name="columns" type="textarea" label="COM_NOKLIST_COLUMNS_LABEL" description="COM_NOKLIST_COLUMNS_DESC" />
 			<field name="file" type="text" label="COM_NOKLIST_FILE_LABEL" description="COM_NOKLIST_FILE_DESC" />
-			<field name="allow_change" type="radio" default="1" label="COM_NOKLIST_ALLOW_CHANGE_LABEL" description="COM_NOKLIST_ALLOW_CHANGE_DESC">
+			<field name="allow_change" class="btn-group btn-group-yesno" type="radio" default="1"
+				label="COM_NOKLIST_ALLOW_CHANGE_LABEL" description="COM_NOKLIST_ALLOW_CHANGE_DESC">
 				<option value="0">JNO</option>
 				<option value="1">JYES</option>
 			</field>
-			<field name="change_access" type="accesslevel" label="COM_NOKLIST_CHANGE_ACCESS_LABEL" description="COM_NOKLIST_CHANGE_ACCESS_DESC" size="1" hide_none="false"/>
+			<field name="change_access" type="accesslevel" size="1" hide_none="false"
+				 label="COM_NOKLIST_CHANGE_ACCESS_LABEL" description="COM_NOKLIST_CHANGE_ACCESS_DESC" />
 		</fieldset>
 		<!-- List options. -->
 		<fieldset name="list" label="COM_NOKLIST_LIST_OPTIONS_FIELDSET_LABEL">
 			<field name="list_columns" type="textarea" label="COM_NOKLIST_LIST_COLUMNS_LABEL" description="COM_NOKLIST_LIST_COLUMNS_DESC" />
 			<field name="sort_column" type="text" label="COM_NOKLIST_LIST_SORT_COLUMN_LABEL" description="COM_NOKLIST_LIST_SORT_COLUMN_DESC"/>
-			<field name="sort_direction" type="radio" default="ASC" label="COM_NOKLIST_LIST_SORT_DIRECTION_LABEL" description="COM_NOKLIST_LIST_SORT_DIRECTION_DESC">
+			<field name="sort_direction" type="radio" default="ASC"
+				label="COM_NOKLIST_LIST_SORT_DIRECTION_LABEL" description="COM_NOKLIST_LIST_SORT_DIRECTION_DESC">
 				<option value="ASC">Ascending</option>
 				<option value="DESC">Descending</option>
 			</field>
-			<field name="sort_enable" type="radio" default="1"
-				label="COM_NOKLIST_LIST_SORT_ENABLED_LABEL"
-				description="COM_NOKLIST_LIST_SORT_ENABLED_DESC">
+			<field name="sort_enable" type="radio" default="1" class="btn-group btn-group-yesno" 
+				label="COM_NOKLIST_LIST_SORT_ENABLED_LABEL" description="COM_NOKLIST_LIST_SORT_ENABLED_DESC">
 				<option value="0">JNO</option>
 				<option value="1">JYES</option>
 			</field>
-			<field name="list_detail_column" type="text" label="COM_NOKLIST_LIST_DETAIL_COLUMN_LABEL" description="COM_NOKLIST_LIST_DETAIL_COLUMN_DESC" />
+			<field name="list_detail_column" type="text"
+				label="COM_NOKLIST_LIST_DETAIL_COLUMN_LABEL" description="COM_NOKLIST_LIST_DETAIL_COLUMN_DESC" />
 			<field name="@spacer" type="spacer" default="" label="" description="" />
-			<field name="show_header" type="radio" default="1"
+			<field name="show_header" type="radio" default="1" class="btn-group btn-group-yesno"
 				label="COM_NOKLIST_LIST_SHOW_HEADER_LABEL"
 				description="COM_NOKLIST_LIST_SHOW_HEADER_DESC">
 				<option value="0">JNO</option>
@@ -49,7 +52,7 @@
 				<option value="90%">90%</option>
 				<option value="100%">100%</option>
 			</field>
-			<field name="table_center" type="radio" default="0"
+			<field name="table_center" type="radio" default="0" class="btn-group btn-group-yesno"
 				label="COM_NOKLIST_LIST_CENTER_LIST_LABEL"
 				description="COM_NOKLIST_LIST_CENTER_LIST_DESC">
 				<option value="0">JNO</option>
@@ -65,15 +68,18 @@
 			<field name="cellpadding" type="integer" label="COM_NOKLIST_LIST_CELLPADDING_LABEL"
 				description="COM_NOKLIST_LIST_CELLPADDING_DESC" required="true" first="0" last="10" step="1" default="0" />
 			<field name="@spacer" type="spacer" default="" label="" description="" />
-			<field name="allow_export" type="radio" default="1"
-				label="COM_NOKLIST_LIST_ALLOW_EXPORT_LABEL"
-				description="COM_NOKLIST_LIST_ALLOW_EXPORT_DESC">
+			<field name="allow_csv_export" type="radio" default="1" class="btn-group btn-group-yesno"
+				label="COM_NOKLIST_LIST_ALLOW_CSV_EXPORT_LABEL" description="COM_NOKLIST_LIST_ALLOW_CSV_EXPORT_DESC">
 				<option value="0">JNO</option>
 				<option value="1">JYES</option>
 			</field>
-			<field name="allow_import" type="radio" default="1"
-				label="COM_NOKLIST_LIST_ALLOW_IMPORT_LABEL"
-				description="COM_NOKLIST_LIST_ALLOW_IMPORT_DESC">
+			<field name="allow_import" type="radio" default="1" class="btn-group btn-group-yesno"
+				label="COM_NOKLIST_LIST_ALLOW_CSV_IMPORT_LABEL" description="COM_NOKLIST_LIST_ALLOW_CSV_IMPORT_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="allow_json_export" type="radio" default="1" class="btn-group btn-group-yesno"
+				label="COM_NOKLIST_LIST_ALLOW_JSON_EXPORT_LABEL" description="COM_NOKLIST_LIST_ALLOW_JSON_EXPORT_DESC">
 				<option value="0">JNO</option>
 				<option value="1">JYES</option>
 			</field>
