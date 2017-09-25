@@ -53,7 +53,12 @@ foreach ($this->colHeaders as $key => $col) {
 		case 'boolean':
 			JFormHelper::loadFieldClass('radio');
 			$field = new JFormFieldRadio();
-			$field->setup(new SimpleXMLElement('<field name="col_'.$key.'" type="radio" size="1" default="'.$value.'" class="btn-group btn-group-yesno"><option value="1">JYES</option><option value="0">JNO</option></field>'), 1);
+			$xml = '<field name="col_'.$key.'" type="radio" size="1" default="1" class="btn-group btn-group-yesno">';
+			$xml .= '<option value="1">JYES</option>';
+			$xml .= '<option value="0">JNO</option>';
+			$xml .= '</field>';
+			$field->setup(new SimpleXMLElement($xml), 1);
+			$field->setValue($value);
 			echo $field->renderField(array('hiddenLabel'=>true));
 			break;
 		case 'range':
