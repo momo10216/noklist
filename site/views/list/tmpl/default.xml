@@ -83,6 +83,11 @@
 				<option value="0">JNO</option>
 				<option value="1">JYES</option>
 			</field>
+			<field name="display_json_link" type="radio" default="1" class="btn-group btn-group-yesno"
+				label="COM_NOKLIST_LIST_DISPLAY_JSON_LINK_LABEL" description="COM_NOKLIST_LIST_DISPLAY_JSON_LINK_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
 			<field name="@spacer" type="spacer" default="" label="" description="" />
 			<field name="pretext" type="editor" label="COM_NOKLIST_LIST_PRETEXT_LABEL" description="COM_NOKLIST_LIST_PRETEXT_DESC" filter="safehtml" />
 			<field name="posttext" type="editor" label="COM_NOKLIST_LIST_POSTTEXT_LABEL" description="COM_NOKLIST_LIST_POSTTEXT_DESC" filter="safehtml" />

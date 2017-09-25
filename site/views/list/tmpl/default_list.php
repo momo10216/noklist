@@ -59,7 +59,7 @@ if ($this->paramsMenuEntry->get('allow_csv_export') == '1') {
 	echo '<input type="submit" value="'.JText::_('COM_NOKLIST_EXPORT_BUTTON').'"/>';
 	echo '</form>'.$EOL;
 }
-if ($this->paramsMenuEntry->get('allow_json_export') == '1') {
+if (($this->paramsMenuEntry->get('allow_json_export') == '1') && ($this->paramsMenuEntry->get('display_json_link') == '1')) {
 	echo '<a href="'.$this->getLink('json_export').'">JSON</a>'.$EOL;
 }
 // Display import
