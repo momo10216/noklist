@@ -147,7 +147,7 @@ $idxlist = $this->getIndex($rows,$sortField,$sortDirection);
 $rowcount = count($rows);
 if ($rowcount > 0) {
 	$deleteConfirmMsg = JText::_("COM_NOKLIST_ENTRY_CONFIRM_DELETE");
-	foreach($idxlist as $rkey) {
+	foreach($idxlist as $rkey => $rvalue) {
 		if (isset($rows[$rkey])) {
 			$row = $rows[$rkey];
 			echo '<tr>';

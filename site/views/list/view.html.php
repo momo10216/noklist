@@ -264,13 +264,13 @@ class NoKListViewList extends JViewLegacy {
 			if (empty($column)) {
 				$index[$key] = $key;
 			} else {
-				$index[$row[$this->colPos[$column]]] = $key;
+				$index[$key] = $row[$this->colPos[$column]];
 			}
 		}
 		if ($direction == 'ASC') {
-			ksort($index);
+			asort($index);
 		} else {
-			krsort($index);
+			arsort($index);
 		}
 		return $index;
 	}
