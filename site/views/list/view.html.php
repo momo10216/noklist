@@ -233,6 +233,11 @@ class NoKListViewList extends JViewLegacy {
 
 	function getDisplayValue($col, $value) {
 		if (isset($this->colTypes[$col])) {
+			if (isset($this->colParams[$col])) {
+				$param = $this->colParams[$col];
+			} else {
+				$param = array();
+			}
 			switch (strtolower($this->colTypes[$col])) {
 				case 'date':
 					if (!empty($value)) { return JHTML::date($value,JText::_('DATE_FORMAT_LC4')); }
@@ -245,7 +250,20 @@ class NoKListViewList extends JViewLegacy {
 					if (!empty($value)) { return '<pre>'.$value.'</pre>'; }
 					break;
 				case 'url':
-					if (!empty($value)) { return '<a href="'.$value.'" target="_new">'.$value.'</a>'; }
+					$newWin = false;
+					if (isset($param[0]) && ($param[0] == '1')) {
+						$newWin = true;
+					}
+					$linkText = $value;
+					if (isset($param[1]) && !empty($param[1])) {
+						$linkText = $param[1];
+					}
+					if (!empty($value)) {
+						$retval = '<a href="'.$value.'"';
+						if ($newWin === true) { $retval .= ' target="_blank"'; }
+						$retval .= '>'.$linkText.'</a>';
+						return $retval;
+					}
 					break;
 				case 'email':
 					if (!empty($value)) { return '<a href="mailto:'.$value.'">'.$value.'</a>'; }
