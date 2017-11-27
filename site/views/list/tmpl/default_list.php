@@ -130,15 +130,19 @@ foreach ($listColumn as $key => $col) {
 	}
 	echo '</th>';
 }
-echo '<th colspan="2" align="left"';
-if ($this->paramsMenuEntry->get('border_type') != 'row') {
-	echo $borderStyle;
-}
-echo '>';
 if ($this->canChange()) {
+	if (empty($sortField) && ($manualSortEnabled === false)) {
+		echo '<th colspan="4" align="left"';
+	} else {
+		echo '<th colspan="2" align="left"';
+	}
+	if ($this->paramsMenuEntry->get('border_type') != 'row') {
+		echo $borderStyle;
+	}
+	echo '>';
 	echo '<a style="text-decoration: none;" href="'.$this->getLink('new').'"><span class="icon-new"></span></a>';
+	echo '</th>';
 }
-echo '</th>';
 echo '</tr>'.$EOL;
 
 // Display list
@@ -171,40 +175,30 @@ if ($rowcount > 0) {
 				}
 				echo '</td>';
 			}
-			echo '<td'.$borderStyle.'>';
 			if ($this->canChange()) {
+				$cellstart = '<td>';
+				if ($this->paramsMenuEntry->get('border_type') != 'column') {
+					$cellstart = '<td'.$borderStyle.'>';
+				}
+				echo $cellstart;
 				echo '<a style="text-decoration: none;" href="'.$this->getLink('edit',"$rkey").'"><span class="icon-edit"></span></a>';
-			}
-			echo '</td>';
-			if ($this->paramsMenuEntry->get('border_type') != 'column') {
-				echo '<td'.$borderStyle.'>';
-			} else {
-				echo '<td>';
-			}
-			if ($this->canChange()) {
+				echo '</td>';
+				echo $cellstart;
 				echo '<a style="text-decoration: none;" href="'.$this->getLink('delete',"$rkey").'" onClick="return confirm(\''.$deleteConfirmMsg.'\');"><span class="icon-trash"></span></a>';
+				echo '</td>';
+				if (empty($sortField) && ($manualSortEnabled === false)) {
+					echo $cellstart;
+					if ($rkey > 0) {
+						echo '<a style="text-decoration: none;" href="'.$this->getLink('moveup',"$rkey").'"><span class="icon-arrow-up"></span></a>';
+					}
+					echo '</td>';
+					echo $cellstart;
+					if ($rkey < ($rowcount-1)) {
+						echo '<a style="text-decoration: none;" href="'.$this->getLink('movedown',"$rkey").'"><span class="icon-arrow-down"></span></a>';
+					}
+					echo '</td>';
+				}
 			}
-			echo '</td>';
-/*
-			if ($this->paramsMenuEntry->get('border_type') != 'column') {
-				echo '<td'.$borderStyle.'>';
-			} else {
-				echo '<td>';
-			}
-			if ($this->canChange() && ($rkey > 0)) {
-				echo '<a style="text-decoration: none;" href="'.$this->getLink('moveup',"$rkey").'"><span class="icon-arrow-up"></span></a>';
-			}
-			echo '</td>';
-			if ($this->paramsMenuEntry->get('border_type') != 'column') {
-				echo '<td'.$borderStyle.'>';
-			} else {
-				echo '<td>';
-			}
-			if ($this->canChange()  && ($rkey < ($rowcount-1))) {
-				echo '<a style="text-decoration: none;" href="'.$this->getLink('movedown',"$rkey").'"><span class="icon-arrow-down"></span></a>';
-			}
-			echo '</td>';
-*/
 			echo '</tr>'.$EOL;
 		}
 	}
