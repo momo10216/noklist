@@ -26,8 +26,8 @@
 			<field name="sort_column" type="text" label="COM_NOKLIST_LIST_SORT_COLUMN_LABEL" description="COM_NOKLIST_LIST_SORT_COLUMN_DESC"/>
 			<field name="sort_direction" type="radio" default="ASC"
 				label="COM_NOKLIST_LIST_SORT_DIRECTION_LABEL" description="COM_NOKLIST_LIST_SORT_DIRECTION_DESC">
-				<option value="ASC">Ascending</option>
-				<option value="DESC">Descending</option>
+				<option value="ASC">COM_NOKLIST_LIST_SORT_DIRECTION_ASCENDING</option>
+				<option value="DESC">COM_NOKLIST_LIST_SORT_DIRECTION_DESCENDING</option>
 			</field>
 			<field name="sort_enable" type="radio" default="1" class="btn-group btn-group-yesno" 
 				label="COM_NOKLIST_LIST_SORT_ENABLED_LABEL" description="COM_NOKLIST_LIST_SORT_ENABLED_DESC">
