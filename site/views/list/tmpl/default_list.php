@@ -99,10 +99,11 @@ switch ($this->paramsMenuEntry->get( "border_type")) {
 }
 if ($this->paramsMenuEntry->get('table_center') == '1') { echo '<center>'.$EOL; }
 if ($this->paramsMenuEntry->get('border_type') != '') {
-	echo '<table'.$width.' cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="'.$border.'">'.$EOL;
+	echo '<table'.$width.' id="noklist1" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="'.$border.'">'.$EOL;
 } else {
-	echo '<table'.$width.' border="0" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="border-style:none; border-width:0px">'.$EOL;
+	echo '<table'.$width.' id="noklist1" border="0" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="border-style:none; border-width:0px">'.$EOL;
 }
+echo '<thead>';
 echo '<tr>';
 foreach ($listColumn as $key => $col) {
 	echo '<th align="left"';
@@ -143,9 +144,11 @@ if ($this->canChange()) {
 	echo '<a style="text-decoration: none;" href="'.$this->getLink('new').'"><span class="icon-new"></span></a>';
 	echo '</th>';
 }
-echo '</tr>'.$EOL;
+echo '</tr>';
+echo '</thead>'.$EOL;
 
 // Display list
+echo '<tbody>'.$EOL;
 $rows = $this->getData();
 $idxlist = $this->getIndex($rows,$sortField,$sortDirection);
 $rowcount = count($rows);
@@ -203,6 +206,7 @@ if ($rowcount > 0) {
 		}
 	}
 }
+echo '</tbody>'.$EOL;
 
 // Display footer
 echo '</table>'.$EOL;

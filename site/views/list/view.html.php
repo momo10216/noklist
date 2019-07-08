@@ -29,6 +29,11 @@ class NoKListViewList extends JViewLegacy {
 		$this->user = JFactory::getUser();
 		$app = JFactory::getApplication();
 		$this->document = JFactory::getDocument();
+		// Add JavaScript Frameworks
+		JHtml::_('bootstrap.framework');
+		$this->document->addScript('components/com_noklist/js/tablefilter.js');
+		$this->document->addScriptDeclaration('var tf = setFilterGrid("noklist1");');
+
 		$this->form = $this->get('Form');
 		// Get related menu entry
 		$menuItemId = JRequest::getVar('menuitemid');
