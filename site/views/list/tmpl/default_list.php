@@ -15,6 +15,106 @@ $encodings = array(
 	'Mac' => 'MAC',
 	'Linux' => 'UTF-8'
 );
+$listColumn = array();
+
+function displayExport() {
+	if ($this->paramsMenuEntry->get('allow_csv_export') == '1') {
+		echo '<form action="'.$this->getLink('csv_export').'" method="POST">';
+		echo '<select name="export_encoding" style="width: auto; margin: 0px; ">';
+		foreach($encodings as $display => $value) {
+			echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
+		}
+		echo '</select>';
+		echo '<input type="submit" value="'.JText::_('COM_NOKLIST_EXPORT_BUTTON').'"/>';
+		echo '</form>'.$EOL;
+	}
+	if (($this->paramsMenuEntry->get('allow_json_export') == '1') && ($this->paramsMenuEntry->get('display_json_link') == '1')) {
+		echo '<a href="'.$this->getLink('json_export').'">JSON</a>'.$EOL;
+	}
+}
+
+function displayImport() {
+	if ($this->paramsMenuEntry->get('allow_import') == '1') {
+		if ($this->canChange()) {
+			echo '<form action="'.$this->getLink('import').'" method="POST" enctype="multipart/form-data">';
+			echo '<select name="import_encoding" style="width: auto; margin: 0px; ">';
+			foreach($encodings as $display => $value) {
+				echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
+			}
+			echo '</select>';
+			echo '<input class="input_box" id="import_file" name="import_file" type="file" size="57" />';
+			echo '<input type="submit" value="'.JText::_('COM_NOKLIST_IMPORT_BUTTON').'" onClick="if(document.getElementById(\'import_file\').value == \'\') { alert(\''.JText::_('COM_NOKLIST_IMPORT_FILE_EMPTY').'\'); return false; }"/>';
+			echo '</form>'.$EOL;
+		}
+	}
+}
+
+function displayTableSearch($listColumn, $sortField, $manualSortEnabled) {
+	echo '<tr>';
+	foreach ($listColumn as $key => $col) {
+		echo '<td>';
+		echo '</td>';
+	}
+	if ($this->canChange()) {
+		if (empty($sortField) && ($manualSortEnabled === false)) {
+			echo '<td colspan="4" align="left"';
+		} else {
+			echo '<td colspan="2" align="left"';
+		}
+		if ($this->paramsMenuEntry->get('border_type') != 'row') {
+			echo $borderStyle;
+		}
+		echo '>&nbsp;</td>';
+	}
+	echo '</tr>'.$EOL;
+}
+
+function displayTableHeader($listColumn, $sortField, $sortDirection, $manualSortEnabled) {
+	echo '<thead>'.$EOL;
+	echo '<tr>';
+	foreach ($listColumn as $key => $col) {
+		echo '<th align="left"';
+		if ($this->paramsMenuEntry->get('border_type') != 'row') {
+			if (($this->paramsMenuEntry->get('border_type') != 'column') || ($key != '0')) {
+				echo $borderStyle;
+			}
+		}
+		echo '>';
+		if ($manualSortEnabled) {
+			$newSortDirection = 'ASC';
+			$sortExtText = '';
+			if ($col == $sortField) {
+				$sortExtText = '&#x25BC;';
+				if ($sortDirection == 'ASC') {
+					$newSortDirection = 'DESC';
+					$sortExtText = ' &#x25B2;';
+				}
+			}
+			echo '<a style="text-decoration: none;" href="'.$this->getSortLink($col,$newSortDirection).'">';
+		}
+		echo $col;
+		if ($manualSortEnabled) {
+			echo '</a>'.$sortExtText;
+		}
+		echo '</th>';
+	}
+	if ($this->canChange()) {
+		if (empty($sortField) && ($manualSortEnabled === false)) {
+			echo '<th colspan="4" align="left"';
+		} else {
+			echo '<th colspan="2" align="left"';
+		}
+		if ($this->paramsMenuEntry->get('border_type') != 'row') {
+			echo $borderStyle;
+		}
+		echo '>';
+		echo '<a style="text-decoration: none;" href="'.$this->getLink('new').'"><span class="icon-new"></span></a>';
+		echo '</th>';
+	}
+	echo '</tr>'.$EOL;
+	displayTableSearch($listColumn, $sortField, $manualSortEnabled);
+	echo '</thead>'.$EOL;
+}
 
 // Get columns to be displayed
 if (is_object($this->paramsMenuEntry)) {
@@ -48,34 +148,8 @@ if ($manualSortEnabled) {
 // Pre text
 echo $this->paramsMenuEntry->get('pretext');
 
-// Display export
-if ($this->paramsMenuEntry->get('allow_csv_export') == '1') {
-	echo '<form action="'.$this->getLink('csv_export').'" method="POST">';
-	echo '<select name="export_encoding" style="width: auto; margin: 0px; ">';
-	foreach($encodings as $display => $value) {
-		echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
-	}
-	echo '</select>';
-	echo '<input type="submit" value="'.JText::_('COM_NOKLIST_EXPORT_BUTTON').'"/>';
-	echo '</form>'.$EOL;
-}
-if (($this->paramsMenuEntry->get('allow_json_export') == '1') && ($this->paramsMenuEntry->get('display_json_link') == '1')) {
-	echo '<a href="'.$this->getLink('json_export').'">JSON</a>'.$EOL;
-}
-// Display import
-if ($this->paramsMenuEntry->get('allow_import') == '1') {
-	if ($this->canChange()) {
-		echo '<form action="'.$this->getLink('import').'" method="POST" enctype="multipart/form-data">';
-		echo '<select name="import_encoding" style="width: auto; margin: 0px; ">';
-		foreach($encodings as $display => $value) {
-			echo '<option value="'.$value.'">'.$display.' ('.$value.')</option>';
-		}
-		echo '</select>';
-		echo '<input class="input_box" id="import_file" name="import_file" type="file" size="57" />';
-		echo '<input type="submit" value="'.JText::_('COM_NOKLIST_IMPORT_BUTTON').'" onClick="if(document.getElementById(\'import_file\').value == \'\') { alert(\''.JText::_('COM_NOKLIST_IMPORT_FILE_EMPTY').'\'); return false; }"/>';
-		echo '</form>'.$EOL;
-	}
-}
+displayExport();
+displayImport();
 
 // Display header
 $border='border-style:solid; border-width:1px';
@@ -97,55 +171,15 @@ switch ($this->paramsMenuEntry->get( "border_type")) {
 		$borderStyle = "";
 		break;
 }
+echo '<p>'.$EOL;
 if ($this->paramsMenuEntry->get('table_center') == '1') { echo '<center>'.$EOL; }
 if ($this->paramsMenuEntry->get('border_type') != '') {
 	echo '<table'.$width.' id="noklist1" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="'.$border.'">'.$EOL;
 } else {
 	echo '<table'.$width.' id="noklist1" border="0" cellspacing="0" cellpadding="'.$this->paramsMenuEntry->get('cellpadding').'" style="border-style:none; border-width:0px">'.$EOL;
 }
-echo '<thead>';
-echo '<tr>';
-foreach ($listColumn as $key => $col) {
-	echo '<th align="left"';
-	if ($this->paramsMenuEntry->get('border_type') != 'row') {
-		if (($this->paramsMenuEntry->get('border_type') != 'column') || ($key != '0')) {
-			echo $borderStyle;
-		}
-	}
-	echo '>';
-	if ($manualSortEnabled) {
-		$newSortDirection = 'ASC';
-		$sortExtText = '';
-		if ($col == $sortField) {
-			$sortExtText = '&#x25BC;';
-			if ($sortDirection == 'ASC') {
-				$newSortDirection = 'DESC';
-				$sortExtText = ' &#x25B2;';
-			}
-		}
-		echo '<a style="text-decoration: none;" href="'.$this->getSortLink($col,$newSortDirection).'">';
-	}
-	echo $col;
-	if ($manualSortEnabled) {
-		echo '</a>'.$sortExtText;
-	}
-	echo '</th>';
-}
-if ($this->canChange()) {
-	if (empty($sortField) && ($manualSortEnabled === false)) {
-		echo '<th colspan="4" align="left"';
-	} else {
-		echo '<th colspan="2" align="left"';
-	}
-	if ($this->paramsMenuEntry->get('border_type') != 'row') {
-		echo $borderStyle;
-	}
-	echo '>';
-	echo '<a style="text-decoration: none;" href="'.$this->getLink('new').'"><span class="icon-new"></span></a>';
-	echo '</th>';
-}
-echo '</tr>';
-echo '</thead>'.$EOL;
+
+displayTableHeader($listColumn, $sortField, $sortDirection, $manualSortEnabled);
 
 // Display list
 echo '<tbody>'.$EOL;
@@ -210,6 +244,7 @@ echo '</tbody>'.$EOL;
 
 // Display footer
 echo '</table>'.$EOL;
+echo '</p>'.$EOL;
 if ($this->paramsMenuEntry->get( "table_center") == "1") { echo '</center>'.$EOL; }
 
 // Post text
