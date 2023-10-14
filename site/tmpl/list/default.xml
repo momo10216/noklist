@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_NOKLIST_LIST_VIEW_DEFAULT_TITLE" option="COM_NOKLIST_LIST_VIEW_DEFAULT_OPTION">
+		<message>
+			<![CDATA[COM_NOKLIST_LIST_VIEW_DEFAULT_DESC]]>
+		</message>
+	</layout>
+
+	<!-- Request parameters -->
+	<fields name="request">
+		<fieldset name="request" label="COM_NOKLIST_REQUEST_OPTIONS_FIELDSET_LABEL">
+		</fieldset>
+	</fields>
+	<fields name="params">
+		<!-- Basic options. -->
+		<fieldset name="basic" label="COM_NOKLIST_BASIC_OPTIONS_FIELDSET_LABEL">
+			<field name="columns" type="textarea" label="COM_NOKLIST_COLUMNS_LABEL" description="COM_NOKLIST_COLUMNS_DESC" />
+			<field name="file" type="text" label="COM_NOKLIST_FILE_LABEL" description="COM_NOKLIST_FILE_DESC" />
+			<field name="allow_change" class="btn-group btn-group-yesno" type="radio" default="1"
+				   label="COM_NOKLIST_ALLOW_CHANGE_LABEL" description="COM_NOKLIST_ALLOW_CHANGE_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="change_access" type="accesslevel" size="1" hide_none="false"
+				   label="COM_NOKLIST_CHANGE_ACCESS_LABEL" description="COM_NOKLIST_CHANGE_ACCESS_DESC" />
+		</fieldset>
+
+		<!-- List options. -->
+		<fieldset name="list" label="COM_NOKLIST_LIST_OPTIONS_FIELDSET_LABEL">
+			<field name="list_columns" type="textarea" label="COM_NOKLIST_LIST_COLUMNS_LABEL" description="COM_NOKLIST_LIST_COLUMNS_DESC" />
+			<field name="sort_column" type="text" label="COM_NOKLIST_LIST_SORT_COLUMN_LABEL" description="COM_NOKLIST_LIST_SORT_COLUMN_DESC"/>
+			<field name="sort_direction" type="radio" default="ASC"
+				   label="COM_NOKLIST_LIST_SORT_DIRECTION_LABEL" description="COM_NOKLIST_LIST_SORT_DIRECTION_DESC">
+				<option value="ASC">COM_NOKLIST_LIST_SORT_DIRECTION_ASCENDING</option>
+				<option value="DESC">COM_NOKLIST_LIST_SORT_DIRECTION_DESCENDING</option>
+			</field>
+			<field name="sort_enable" type="radio" default="1" class="btn-group btn-group-yesno"
+				   label="COM_NOKLIST_LIST_SORT_ENABLED_LABEL" description="COM_NOKLIST_LIST_SORT_ENABLED_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="list_detail_column" type="text"
+				   label="COM_NOKLIST_LIST_DETAIL_COLUMN_LABEL" description="COM_NOKLIST_LIST_DETAIL_COLUMN_DESC" />
+			<field name="@spacer" type="spacer" default="" label="" description="" />
+			<field name="show_header" type="radio" default="1" class="btn-group btn-group-yesno"
+				   label="COM_NOKLIST_LIST_SHOW_HEADER_LABEL"
+				   description="COM_NOKLIST_LIST_SHOW_HEADER_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="width" type="list" default="" label="COM_NOKLIST_LIST_WIDTH_LABEL" description="COM_NOKLIST_LIST_WIDTH_DESC">
+				<option value="">JNONE</option>
+				<option value="50%">50%</option>
+				<option value="60%">60%</option>
+				<option value="70%">70%</option>
+				<option value="80%">80%</option>
+				<option value="90%">90%</option>
+				<option value="100%">100%</option>
+			</field>
+			<field name="table_center" type="radio" default="0" class="btn-group btn-group-yesno"
+				   label="COM_NOKLIST_LIST_CENTER_LIST_LABEL"
+				   description="COM_NOKLIST_LIST_CENTER_LIST_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="border_type" type="list" default="" label="COM_NOKLIST_LIST_BORDER_TYPE_LABEL" description="COM_NOKLIST_LIST_BORDER_TYPE_DESC">
+				<option value="">JNONE</option>
+				<option value="border">COM_NOKLIST_LIST_BORDER_TYPE_BORDER</option>
+				<option value="row">COM_NOKLIST_LIST_BORDER_TYPE_ROW</option>
+				<option value="column">COM_NOKLIST_LIST_BORDER_TYPE_COLUMN</option>
+				<option value="grid">COM_NOKLIST_LIST_BORDER_TYPE_GRID</option>
+			</field>
+			<field name="cellpadding" type="integer" label="COM_NOKLIST_LIST_CELLPADDING_LABEL"
+				   description="COM_NOKLIST_LIST_CELLPADDING_DESC" required="true" first="0" last="10" step="1" default="0" />
+			<field name="@spacer" type="spacer" default="" label="" description="" />
+			<field name="allow_csv_export" type="radio" default="1" class="btn-group btn-group-yesno"
+				   label="COM_NOKLIST_LIST_ALLOW_CSV_EXPORT_LABEL" description="COM_NOKLIST_LIST_ALLOW_CSV_EXPORT_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="allow_import" type="radio" default="1" class="btn-group btn-group-yesno"
+				   label="COM_NOKLIST_LIST_ALLOW_CSV_IMPORT_LABEL" description="COM_NOKLIST_LIST_ALLOW_CSV_IMPORT_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="allow_json_export" type="radio" default="1" class="btn-group btn-group-yesno"
+				   label="COM_NOKLIST_LIST_ALLOW_JSON_EXPORT_LABEL" description="COM_NOKLIST_LIST_ALLOW_JSON_EXPORT_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="display_json_link" type="radio" default="1" class="btn-group btn-group-yesno"
+				   label="COM_NOKLIST_LIST_DISPLAY_JSON_LINK_LABEL" description="COM_NOKLIST_LIST_DISPLAY_JSON_LINK_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="@spacer" type="spacer" default="" label="" description="" />
+			<field name="pretext" type="editor" label="COM_NOKLIST_LIST_PRETEXT_LABEL" description="COM_NOKLIST_LIST_PRETEXT_DESC" filter="safehtml" />
+			<field name="posttext" type="editor" label="COM_NOKLIST_LIST_POSTTEXT_LABEL" description="COM_NOKLIST_LIST_POSTTEXT_DESC" filter="safehtml" />
+		</fieldset>
+	</fields>
+</metadata>
